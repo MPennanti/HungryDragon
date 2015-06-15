@@ -1,0 +1,37 @@
+{
+  "name": "hungrydragon",
+  "version": "0.0.1",
+  "description": "A silly game where a dragon eats EVERYTHING.",
+  "main": "",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MPennanti/HungryDragon.git"
+  },
+  "keywords": [
+    "dragon",
+    "hungry",
+    "game"
+  ],
+  "author": "M. Pennanti",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MPennanti/HungryDragon/issues"
+  },
+  "homepage": "https://github.com/MPennanti/HungryDragon#readme",
+  "dependencies": {
+    "immutable": "^3.7.3",
+    "react": "^0.13.3"
+  },
+  "devDependencies": {
+    "glob": "^5.0.10",
+    "grunt": "^0.4.5",
+    "grunt-browserify": "^3.8.0",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-copy": "^0.8.0",
+    "grunt-ts": "^4.2.0-beta.1",
+    "load-grunt-tasks": "^3.2.0"
+  }
+}
