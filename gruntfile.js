@@ -2,15 +2,18 @@
     "use strict";
 
     module.exports = function (grunt) {
-        // Helper function to load the config file
+        // Helper function to load the config file for each plugin
         function loadConfig(path) {
             var glob = require("glob");
             var object = {};
-            var key;
 
             glob.sync("*.js", { cwd: path }).forEach(function (option) {
-                key = option.replace(/\.js$/, "");
-                object[key] = require(path + option);
+                var key = option.replace(/\.js$/, "");
+                var value = require(path + option);
+                if (typeof (value) === 'function') {
+                    value = value(grunt);
+                }
+                object[key] = value;
             });
 
             return object;
@@ -23,7 +26,8 @@
         // Load all grunt-tasks in package.json
         require("load-grunt-tasks")(grunt);
 
-        grunt.registerTask("default", ["clean", "ts", "browserify", "copy", "less"]);
+        grunt.registerTask("default", ["clean", "ts", "browserify", "copy", "less", "lint"]);
+        grunt.registerTask("lint", ["tslint"]);
     };
 
 })();
