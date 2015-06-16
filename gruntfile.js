@@ -23,7 +23,7 @@
         // Load all grunt-tasks in package.json
         require("load-grunt-tasks")(grunt);
 
-        grunt.registerTask("default", ["clean", "ts", "browserify", "copy"]);
+        grunt.registerTask("default", ["clean", "ts", "browserify", "copy", "less"]);
     };
 
 })();
