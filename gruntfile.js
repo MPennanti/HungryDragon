@@ -30,7 +30,7 @@
         grunt.registerTask("lint", ["tslint"]);
         grunt.registerTask("test", ["mochaTest"]);
         grunt.registerTask("coverage", ["default", "mocha_istanbul"]);
-        grunt.registerTask("ci", ["default"]);
+        grunt.registerTask("ci", ["coverage", "coveralls"]);
     };
 
 })();
