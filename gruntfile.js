@@ -26,8 +26,9 @@
         // Load all grunt-tasks in package.json
         require("load-grunt-tasks")(grunt);
 
-        grunt.registerTask("default", ["clean", "ts", "browserify", "copy", "less", "lint"]);
+        grunt.registerTask("default", ["clean", "ts", "browserify", "copy", "less", "lint", "test"]);
         grunt.registerTask("lint", ["tslint"]);
+        grunt.registerTask("test", ["mochaTest"]);
     };
 
 })();
