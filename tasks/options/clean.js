@@ -6,7 +6,8 @@
             force: true
         },
         all: [
-            "dist/"
+            "dist/",
+            "coverage/"
         ],
     };
 })();

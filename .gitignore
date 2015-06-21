@@ -32,3 +32,6 @@ dist
 #TypeScript grunt plugin cruft
 .tscache
 .baseDir.ts
+
+# code coverage
+coverage
