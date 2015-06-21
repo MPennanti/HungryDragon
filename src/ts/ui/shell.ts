@@ -2,7 +2,7 @@
 "use strict";
 import * as React from "react/addons";
 import * as Game from "../game/game";
-import GameState from "../game/gameState";
+import GameState, { MINUTE_LENGTH, HOUR_LENGTH, DAY_LENGTH } from "../game/gameState";
 
 export interface UIState {
     gameState: GameState;
@@ -15,12 +15,11 @@ export default class Shell extends React.Component<{}, UIState> {
         this.state = {
             gameState: Game.defaultState
         };
-        this.handleClick = this.handleClick.bind(this);
     }
 
-    handleClick(ev: React.MouseEvent): void {
+    handleClick(length: number, ev: React.MouseEvent): void {
         this.setState({
-            gameState: Game.tick(this.state.gameState, 1)
+            gameState: Game.tick(this.state.gameState, length)
         });
         ev.stopPropagation();
     }
@@ -28,9 +27,14 @@ export default class Shell extends React.Component<{}, UIState> {
     render(): React.ReactElement<any> {
         return React.DOM.div(
             null,
-            React.DOM.button({"onClick": this.handleClick }, "Wait a second"),
+            React.DOM.button({ "onClick": this.handleClick.bind(this, 1) }, "Wait a second"),
+            React.DOM.button({ "onClick": this.handleClick.bind(this, MINUTE_LENGTH) }, "Wait a minute"),
+            React.DOM.button({ "onClick": this.handleClick.bind(this, HOUR_LENGTH) }, "Wait an hour"),
+            React.DOM.button({"onClick": this.handleClick.bind(this, DAY_LENGTH) }, "Wait a day"),
             " Time in seconds: ",
-            this.state.gameState.time
+            this.state.gameState.time,
+            " Pretty time: ",
+            this.state.gameState.prettyTime
         );
     }
 }
