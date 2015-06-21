@@ -5,7 +5,7 @@
     "eofline": true,
     "forin": true,
     "indent": [true, "spaces"],
-    "interface-name": true,
+    "interface-name": false,
     "label-position": true,
     "label-undefined": true,
     "max-line-length": [true, 140],
@@ -57,10 +57,6 @@
         "check-separator",
         "check-type",
         "check-typecast"
-    ],
-    "use-strict": [true,
-        "check-module",
-        "check-function"
     ]
   }
 }
