@@ -13,7 +13,7 @@ export default class GameState extends Model {
      * The time in seconds.
      */
     public get time(): number {
-        return this._data.get("time");
+        return this._data.get("time", 0);
     }
 
     public setTime(time: number): GameState {
@@ -65,6 +65,4 @@ export default class GameState extends Model {
 
 }
 
-export const defaultState = new GameState(Immutable.Map({
-    time: 0
-}));
+export const defaultState = new GameState(Immutable.Map({}));
