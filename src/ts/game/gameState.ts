@@ -1,6 +1,8 @@
 ///<reference path="../../../typings/references.d.ts"/>
 "use strict";
 import Model from "./model";
+import Entity from "./entity";
+import { newPlayer } from "./player";
 import * as Immutable from "immutable";
 
 export const MINUTE_LENGTH = 60;
@@ -18,10 +20,6 @@ export default class GameState extends Model {
 
     public setTime(time: number): GameState {
         return this.set("time", time);
-    }
-
-    private set(name: string, value: any): GameState {
-        return this.setValue(GameState, name, value);
     }
 
     /**
@@ -59,10 +57,39 @@ export default class GameState extends Model {
         return `Day ${this.day} [${this.leftPad(this.hour)}:${this.leftPad(this.minute)}]`;
     }
 
+    /**
+     * The current list of actions to print to the player
+     */
+    public get log(): Immutable.List<string> {
+        return this._data.get("log", Immutable.List<string>());
+    }
+
+    public setLog(log: Immutable.List<string>): GameState {
+        return this.set("log", log);
+    }
+
+    /**
+     * The player herself
+     */
+    public get player(): Entity {
+        return this._data.get("player", newPlayer);
+    }
+
+    public setPlayer(player: Entity): GameState {
+        return this.set("player", player);
+    }
+
     private leftPad(num: number): string {
         return num < 10 ? "0" + num : num.toString();
     }
 
+    private set(name: string, value: any): GameState {
+        return this.setValue(GameState, name, value);
+    }
+
 }
 
-export const defaultState = new GameState(Immutable.Map({}));
+const defaultLog = Immutable.List<string>(["You see a bag of rice! Fight it!"]);
+export const defaultState = new GameState(Immutable.Map({
+    log: defaultLog
+}));

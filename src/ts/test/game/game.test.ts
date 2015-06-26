@@ -27,4 +27,25 @@ describe("game", () => {
             expect(result.prettyTime).to.equal("Day 7 [18:08]");
         });
     });
+
+    describe("attack", () => {
+        it("lets the player cause damage", () => {
+            let state = Game.defaultState;
+            let result = Game.attack(state, () => { return 1; });
+            expect(result.player.health).to.equal(state.player.health);
+        });
+
+        it("lets the player take damage", () => {
+            let state = Game.defaultState;
+            let result = Game.attack(state, () => { return 0; });
+            expect(result.player.health).to.equal(state.player.health - 1);
+        });
+
+        it("handles death", () => {
+            let state = Game.defaultState;
+            state = state.setPlayer(state.player.setHealth(0));
+            let result = Game.attack(state);
+            expect(result.log.get(0)).to.equal("You are dead!");
+        });
+    });
 });
