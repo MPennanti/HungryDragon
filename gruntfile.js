@@ -2,6 +2,7 @@
     "use strict";
 
     module.exports = function (grunt) {
+        require('time-grunt')(grunt);
         // Helper function to load the config file for each plugin
         function loadConfig(path) {
             var glob = require("glob");
