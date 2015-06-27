@@ -33,6 +33,7 @@
         grunt.registerTask("test", ["mochaTest"]);
         grunt.registerTask("coverage", ["build", "mocha_istanbul"]);
         grunt.registerTask("ci", ["coverage", "coveralls"]);
+        grunt.registerTask("release", ["default", "uglify"]);
     };
 
 })();
