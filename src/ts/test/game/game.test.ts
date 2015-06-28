@@ -1,51 +1,61 @@
 ///<reference path="../../../../typings/test.references.d.ts"/>
 "use strict";
 
-import * as Game from "../../game/game";
+import * as Immutable from "immutable";
 import * as chai from "chai";
+import * as sinon from "sinon";
+import * as Game from "../../game/game";
+import GameState from "../../game/gameState";
+import {Action} from "../../game/action";
+import {riceBag} from "../../game/enemies";
 
 const expect = chai.expect;
 
 describe("game", () => {
-    describe("tick", () => {
-        it("should advance the clock", () => {
-            let result = Game.tick(Game.defaultState, 1);
-            expect(result.time).to.equal(Game.defaultState.time + 1);
-        });
-    });
+    describe("turn", () => {
 
-    describe("prettyTime", () => {
-        it("displays the correct time", () => {
-            // day 7 hour 18 minute 8 second 15
-            let time = 670095;
-            let result = Game.tick(Game.defaultState, time);
-            expect(result.time).to.equal(time);
-            expect(result.day, "day").to.equal(7);
-            expect(result.hour, "hour").to.equal(18);
-            expect(result.minute, "minute").to.equal(8);
-            expect(result.second, "second").to.equal(15);
-            expect(result.prettyTime).to.equal("Day 7 [18:08]");
-        });
-    });
+        let testAction: Action;
+        let actionStub: Sinon.SinonSpy;
 
-    describe("attack", () => {
-        it("lets the player cause damage", () => {
-            let state = Game.defaultState;
-            let result = Game.attack(state, () => { return 1; });
-            expect(result.player.health).to.equal(state.player.health);
+        beforeEach(() => {
+            testAction = new Action();
+            actionStub = sinon.stub(testAction, "doExecute").returnsArg(0);
         });
 
-        it("lets the player take damage", () => {
-            let state = Game.defaultState;
-            let result = Game.attack(state, () => { return 0; });
-            expect(result.player.health).to.equal(state.player.health - 1);
+        it("lets the player take action", () => {
+            let state = new GameState(Immutable.Map({
+                enemy: riceBag
+            }));
+            Game.turn(state, testAction);
+            expect(actionStub.calledOnce).to.be.true;
+        });
+
+        it("lets the enemy take action", () => {
+            let state = new GameState(Immutable.Map({
+                enemy: riceBag
+            }));
+            let enemyAction = new Action();
+            let actionStub = sinon.stub(enemyAction, "doExecute").returnsArg(0);
+            let enemyStub = sinon.stub(riceBag, "defaultAction", { get: (): Action => enemyAction });
+            Game.turn(state, testAction);
+            enemyStub.restore();
+            expect(actionStub.calledOnce).to.be.true;
         });
 
         it("handles death", () => {
-            let state = Game.defaultState;
+            let state = new GameState(Immutable.Map({}));
             state = state.setPlayer(state.player.setHealth(0));
-            let result = Game.attack(state);
+            let result = Game.turn(state, testAction);
             expect(result.log.get(0)).to.equal("You are dead!");
+        });
+
+        it("handles enemy death", () => {
+            let state = new GameState(Immutable.Map({
+                enemy: riceBag.setHealth(0)
+            }));
+            let result = Game.turn(state, testAction);
+            // for now we just spawn a new enemy
+            expect(result.enemy.IsAlive).to.be.true;
         });
     });
 });

@@ -1,10 +1,11 @@
 ///<reference path="../../../typings/references.d.ts"/>
 "use strict";
-import Entity from "./entity";
-import * as Immutable from "immutable";
+import {makeEntity} from "./entity";
 
-export const newPlayer = new Entity(Immutable.Map({
+export const newPlayer = makeEntity({
     name: "Nameless",
     health: 10,
-    maxHealth: 10
-}));
+    maxHealth: 10,
+    hitChance: 1,
+    damageText: "You hit the {1} (-{0} hp)"
+});

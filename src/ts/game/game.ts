@@ -2,29 +2,44 @@
 "use strict";
 
 import GameState from "./gameState";
-import * as Immutable from "immutable";
+import {Action} from "./action";
+import * as Helpers from "./gameHelpers";
+import {riceBag} from "./enemies";
 
-export function tick(state: GameState, seconds: number): GameState {
-    return state.setTime(state.time + Math.floor(seconds));
-}
-
-export function attack(state: GameState, random = Math.random): GameState {
-    let actionLog: string[] = [];
+export function turn(state: GameState, playerAction: Action): GameState {
     let result = state;
 
+    result = Helpers.clearLog(result);
+
     if (result.player.IsAlive) {
-        actionLog.push("You hit the rice bag for 1 hp!");
-        if (random() < .5) {
-            actionLog.push("The rice bag falls on you doing 1 damage");
-            result = result.setPlayer(result.player.setHealth(result.player.health - 1));
+        result = playerAction.execute(result, result.player);
+
+        if (result.enemy) {
+            result = enemyTurn(result);
         }
     }
 
     if (result.player.IsAlive === false) {
-        actionLog.push("You are dead!");
+        result = Helpers.appendLog(result, "You are dead!");
     }
 
-    result = result.setLog(Immutable.List<string>(actionLog));
+    return result;
+}
+
+export function enemyTurn(state: GameState): GameState {
+    let result = state;
+    let enemy = state.enemy;
+    if (enemy.IsAlive) {
+        let action = enemy.defaultAction;
+        result = action.execute(state, enemy);
+    }
+
+    if (result.enemy.IsAlive === false) {
+        result = Helpers.appendLog(result, `You have defeated the ${enemy.name}!`);
+        let newEnemy = riceBag;
+        result = Helpers.appendLog(result, `You encounter a ${newEnemy.name}!`);
+        result = result.setEnemy(newEnemy);
+    }
     return result;
 }
 

@@ -1,9 +1,10 @@
 ///<reference path="../../../typings/references.d.ts"/>
 "use strict";
+import * as Immutable from "immutable";
 import Model from "./model";
 import Entity from "./entity";
 import { newPlayer } from "./player";
-import * as Immutable from "immutable";
+import { riceBag } from "./enemies";
 
 export const MINUTE_LENGTH = 60;
 export const HOUR_LENGTH = MINUTE_LENGTH * 60;
@@ -79,6 +80,17 @@ export default class GameState extends Model {
         return this.set("player", player);
     }
 
+    /**
+     * The current active enemy (if one exists)
+     */
+    public get enemy(): Entity {
+        return this._data.get("enemy");
+    }
+
+    public setEnemy(enemy: Entity): GameState {
+        return this.set("enemy", enemy);
+    }
+
     private leftPad(num: number): string {
         return num < 10 ? "0" + num : num.toString();
     }
@@ -91,5 +103,6 @@ export default class GameState extends Model {
 
 const defaultLog = Immutable.List<string>(["You see a bag of rice! Fight it!"]);
 export const defaultState = new GameState(Immutable.Map({
-    log: defaultLog
+    log: defaultLog,
+    enemy: riceBag
 }));

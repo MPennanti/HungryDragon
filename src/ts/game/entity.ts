@@ -1,8 +1,22 @@
 ///<reference path="../../../typings/references.d.ts"/>
 "use strict";
+import * as Immutable from "immutable";
 import Model from "./model";
+import {ActionEnum, Action, actionList} from "./action";
 
-export default class Entity extends Model {
+export interface IEntity {
+    name: string;
+    health: number;
+    maxHealth: number;
+    hitChance: number;
+    damageText: string;
+}
+
+export interface IEnemy extends IEntity {
+    defaultAction: ActionEnum;
+}
+
+export default class Entity extends Model implements IEntity {
 
     public get name(): string {
         return this._data.get("name", "Nameless");
@@ -41,8 +55,55 @@ export default class Entity extends Model {
         return this.health > 0;
     }
 
+    /**
+     * The chance you hit your opponent, currently from [0,1)
+     */
+    public get hitChance(): number {
+        return this._data.get("hitChance", 1);
+    }
+
+    public setHitChance(hitChance: number): Entity {
+        hitChance = Math.max(hitChance, 0);
+        hitChance = Math.min(hitChance, 1);
+        return this.set("hitChance", hitChance);
+    }
+
+    /**
+     * The base amount of damage you do per hit
+     */
+    public get hitDamage(): number {
+        return this._data.get("hitDamage", 1);
+    }
+
+    public setHitDamage(hitDamage: number): Entity {
+        hitDamage = Math.max(hitDamage, 0);
+        return this.set("hitDamage", hitDamage);
+    }
+
+    /**
+     * A string used when the current entity does damage
+     */
+    public get damageText(): string {
+        return this._data.get("damageText");
+    }
+
+    /**
+     * The default action monsters perform on their turn.
+     */
+    public get defaultAction(): Action {
+        let actionId: ActionEnum = this._data.get("defaultAction");
+        return new actionList[actionId]();
+    }
+
     protected set(name: string, value: any): Entity {
         return this.setValue(Entity, name, value);
     }
+}
 
+export function makeEntity(entityDescriptor: IEntity): Entity {
+    return new Entity(Immutable.Map<string, any>(entityDescriptor));
+}
+
+export function makeEnemy(enemyDescriptor: IEnemy): Entity {
+    return makeEntity(enemyDescriptor);
 }

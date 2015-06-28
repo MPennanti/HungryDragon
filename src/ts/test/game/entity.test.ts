@@ -53,6 +53,21 @@ describe("entity", () => {
             result = result.setMaxHealth(15);
             expect(result.health).to.equal(15);
         });
+
+        it("hitChance cannot be negative", () => {
+            let result = entity.setHitChance(-5);
+            expect(result.hitChance).to.equal(0);
+        });
+
+        it("hitChance cannot be greater than 1", () => {
+            let result = entity.setHitChance(5);
+            expect(result.hitChance).to.equal(1);
+        });
+
+        it("damage cannot be negative", () => {
+            let result = entity.setHitDamage(-5);
+            expect(result.hitDamage).to.equal(0);
+        });
     });
 
     describe("default new player", () => {

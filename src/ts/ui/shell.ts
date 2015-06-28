@@ -2,6 +2,7 @@
 "use strict";
 import * as React from "react/addons";
 import * as Immutable from "immutable";
+import {AttackAction} from "../game/action";
 import * as Game from "../game/game";
 import GameState from "../game/gameState";
 import Entity from "../game/entity";
@@ -19,14 +20,14 @@ export default class Shell extends React.Component<{}, UIState> {
         };
     }
 
-    handleClick(ev: React.MouseEvent): void {
+    public handleClick(ev: React.MouseEvent): void {
         this.setState({
-            gameState: Game.attack(this.state.gameState)
+            gameState: Game.turn(this.state.gameState, new AttackAction())
         });
         ev.stopPropagation();
     }
 
-    render(): React.ReactElement<any> {
+    public render(): React.ReactElement<any> {
         return React.DOM.div(
             null,
             React.createElement(PlayerInfo, {
@@ -34,6 +35,9 @@ export default class Shell extends React.Component<{}, UIState> {
             }),
             React.createElement(LogViewer, {
                 log: this.state.gameState.log
+            }),
+            React.createElement(EnemyInfo, {
+                enemy: this.state.gameState.enemy
             }),
             React.DOM.button({ "onClick": this.handleClick.bind(this) }, "Attack")
         );
@@ -45,7 +49,7 @@ interface PlayerInfoProps {
 }
 
 class PlayerInfo extends React.Component<PlayerInfoProps, {}> {
-    render(): React.ReactElement<any> {
+    public render(): React.ReactElement<any> {
         return React.DOM.div(
             null,
             this.props.player.name,
@@ -58,12 +62,34 @@ class PlayerInfo extends React.Component<PlayerInfoProps, {}> {
     }
 }
 
+interface EnemyInfoProps {
+    enemy: Entity;
+}
+
+class EnemyInfo extends React.Component<EnemyInfoProps, {}> {
+
+    public render(): React.ReactElement<any> {
+        return React.DOM.div(
+            null,
+            this.props.enemy.name,
+            " (",
+            this._currentHealth(),
+            ")"
+        );
+    }
+
+    private _currentHealth(): string {
+        let percent = Math.floor((this.props.enemy.health / this.props.enemy.maxHealth) * 100);
+        return `${percent}%`;
+    }
+ }
+
 interface LogViewerProps {
     log: Immutable.List<string>;
 }
 
 class LogViewer extends React.Component<LogViewerProps, {}> {
-    render(): React.ReactElement<any> {
+    public render(): React.ReactElement<any> {
         let items = this.props.log.toArray().map((item: string) => {
             return React.DOM.li(null, item);
         });
