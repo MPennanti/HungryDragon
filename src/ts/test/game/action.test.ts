@@ -3,7 +3,7 @@
 
 import * as Immutable from "immutable";
 import * as chai from "chai";
-import {AttackAction, Action} from "../../game/action";
+import {AttackAction, EmptyAction, Action} from "../../game/action";
 import GameState, {defaultState} from "../../game/gameState";
 import {riceBag} from "../../game/enemies";
 
@@ -39,5 +39,16 @@ describe("Action", () => {
             let result = attackAction.execute(state, state.player);
             expect(result.enemy.health).to.equal(state.enemy.health - 1);
         });
+    });
+
+    describe("EmptyAction", () => {
+        let emptyAction = new EmptyAction();
+
+        it("does nothing", () => {
+            let state = new GameState(Immutable.Map({}));
+            let result = emptyAction.execute(state, state.player);
+            expect(result).to.equal(state);
+        });
+
     });
 });

@@ -2,12 +2,17 @@
 "use strict";
 
 import GameState from "./gameState";
-import {Action} from "./action";
+import ActionMap, {IActionMap} from "./actionMap";
+import {Action, AttackAction} from "./action";
 import * as Helpers from "./gameHelpers";
 import {riceBag} from "./enemies";
 
 export function turn(state: GameState, playerAction: Action): GameState {
     let result = state;
+
+    if (playerAction.isEmpty) {
+        return result;
+    }
 
     result = Helpers.clearLog(result);
 
@@ -41,6 +46,14 @@ export function enemyTurn(state: GameState): GameState {
         result = result.setEnemy(newEnemy);
     }
     return result;
+}
+
+export function getAvailableActions(state: GameState): ActionMap {
+    let availableActions: IActionMap = {};
+    if (state.player.IsAlive) {
+        availableActions.c = new AttackAction();
+    }
+    return ActionMap.from(availableActions);
 }
 
 export { defaultState } from "./gameState";

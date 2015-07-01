@@ -6,17 +6,10 @@ import * as Helpers from "./gameHelpers";
 import Entity from "./entity";
 import {format} from "../util/string";
 
-export enum ActionEnum {
-    Attack
-}
+export class Action {
 
-export interface IAction {
-    execute(state: GameState, actor: Entity): GameState;
-}
-
-export const actionList: { [key: number]: typeof Action } = {};
-
-export class Action implements IAction {
+    public name = "";
+    public isEmpty = false;
 
     protected _actor: Entity;
     protected _target: Entity;
@@ -61,6 +54,7 @@ export class Action implements IAction {
 }
 
 export class AttackAction extends Action {
+    public name = "Attack";
 
     protected doExecute(state: GameState): GameState {
         let result = state;
@@ -74,4 +68,10 @@ export class AttackAction extends Action {
     }
 }
 
-actionList[ActionEnum.Attack] = AttackAction;
+export class EmptyAction extends Action {
+    public isEmpty = true;
+
+    protected doExecute(state: GameState): GameState {
+        return state;
+    }
+}

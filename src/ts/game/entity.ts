@@ -2,7 +2,7 @@
 "use strict";
 import * as Immutable from "immutable";
 import Model from "./model";
-import {ActionEnum, Action, actionList} from "./action";
+import {Action} from "./action";
 
 export interface IEntity {
     name: string;
@@ -13,7 +13,7 @@ export interface IEntity {
 }
 
 export interface IEnemy extends IEntity {
-    defaultAction: ActionEnum;
+    defaultAction: typeof Action;
 }
 
 export default class Entity extends Model implements IEntity {
@@ -91,8 +91,8 @@ export default class Entity extends Model implements IEntity {
      * The default action monsters perform on their turn.
      */
     public get defaultAction(): Action {
-        let actionId: ActionEnum = this._data.get("defaultAction");
-        return new actionList[actionId]();
+        let actionCtor: typeof Action = this._data.get("defaultAction");
+        return new actionCtor();
     }
 
     protected set(name: string, value: any): Entity {

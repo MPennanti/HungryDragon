@@ -1,7 +1,7 @@
 ///<reference path="../../../typings/references.d.ts"/>
 "use strict";
 import {makeEnemy} from "./entity";
-import {ActionEnum} from "./action";
+import {AttackAction} from "./action";
 
 export const riceBag = makeEnemy({
     name: "Bag of Rice",
@@ -9,5 +9,5 @@ export const riceBag = makeEnemy({
     maxHealth: 5,
     hitChance: .5,
     damageText: "The rice bag falls on you (-{0} hp)",
-    defaultAction: ActionEnum.Attack
+    defaultAction: AttackAction
 });

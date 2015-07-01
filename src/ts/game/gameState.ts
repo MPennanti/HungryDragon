@@ -10,6 +10,8 @@ export const MINUTE_LENGTH = 60;
 export const HOUR_LENGTH = MINUTE_LENGTH * 60;
 export const DAY_LENGTH = HOUR_LENGTH * 24;
 
+const emptyList = Immutable.List<any>();
+
 export default class GameState extends Model {
 
     /**
@@ -62,7 +64,7 @@ export default class GameState extends Model {
      * The current list of actions to print to the player
      */
     public get log(): Immutable.List<string> {
-        return this._data.get("log", Immutable.List<string>());
+        return this._data.get("log", emptyList);
     }
 
     public setLog(log: Immutable.List<string>): GameState {
