@@ -1,0 +1,13 @@
+.hd-ActionGrid {
+  width: 300px;
+  height: 300px;
+}
+.hd-ActionGrid-Cell {
+  width: 100px;
+  height: 100px;
+  float: left;
+}
+.hd-ActionGrid-Cell button {
+  height: 100%;
+  width: 100%;
+}
