@@ -3,7 +3,11 @@
 
 import * as Immutable from "immutable";
 import * as chai from "chai";
-import {AttackAction, EmptyAction, Action} from "../../game/action";
+import Action from "../../game/action/action";
+import EmptyAction from "../../game/action/emptyAction";
+import AttackAction from "../../game/action/attackAction";
+import DevourAction from "../../game/action/devourAction";
+import SpawnMonsterAction from "../../game/action/spawnMonsterAction";
 import GameState, {defaultState} from "../../game/gameState";
 import {riceBag} from "../../game/enemies";
 
@@ -48,6 +52,30 @@ describe("Action", () => {
             let state = new GameState(Immutable.Map({}));
             let result = emptyAction.execute(state, state.player);
             expect(result).to.equal(state);
+        });
+
+    });
+
+    describe("DevourAction", () => {
+        let devourAction = new DevourAction();
+
+        it("consumes the enemy", () => {
+            let state = new GameState(Immutable.Map({
+                enemy: riceBag
+            }));
+            let result = devourAction.execute(state, state.player);
+            expect(result.enemy).to.be.null;
+        });
+
+    });
+
+    describe("SpawnMonsterAction", () => {
+        let spawnMonsterAction = new SpawnMonsterAction();
+
+        it("creates a rice bag", () => {
+            let state = new GameState(Immutable.Map({}));
+            let result = spawnMonsterAction.execute(state, state.player);
+            expect(result.enemy).to.equal(riceBag);
         });
 
     });

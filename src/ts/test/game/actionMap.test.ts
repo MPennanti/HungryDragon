@@ -2,8 +2,8 @@
 "use strict";
 
 import * as chai from "chai";
-import {EmptyAction} from "../../game/action";
-import ActionMap, {actionMapOrder} from "../../game/actionMap";
+import EmptyAction from "../../game/action/emptyAction";
+import ActionMap, {actionMapOrder} from "../../game/action/actionMap";
 
 const expect = chai.expect;
 

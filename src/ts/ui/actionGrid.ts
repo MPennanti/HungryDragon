@@ -1,8 +1,8 @@
 ///<reference path="../../../typings/references.d.ts"/>
 "use strict";
 import * as React from "react/addons";
-import {Action} from "../game/action";
-import ActionMap, {actionMapOrder} from "../game/actionMap";
+import Action from "../game/action/action";
+import ActionMap, {actionMapOrder} from "../game/action/actionMap";
 
 export interface ActionGridProps {
     actionMap: ActionMap;

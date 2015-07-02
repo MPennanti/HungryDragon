@@ -1,8 +1,9 @@
-///<reference path="../../../typings/references.d.ts"/>
+///<reference path="../../../../typings/references.d.ts"/>
 "use strict";
 import * as Immutable from "immutable";
-import Model from "./model";
-import {Action, EmptyAction} from "./action";
+import Model from "../model";
+import EmptyAction from "./emptyAction";
+import Action from "./action";
 
 export interface IActionMap {
     nw?: Action;

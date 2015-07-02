@@ -2,10 +2,12 @@
 "use strict";
 
 import GameState from "./gameState";
-import ActionMap, {IActionMap} from "./actionMap";
-import {Action, AttackAction} from "./action";
+import ActionMap, {IActionMap} from "./action/actionMap";
+import Action from "./action/action";
+import AttackAction from "./action/attackAction";
+import SpawnMonsterAction from "./action/spawnMonsterAction";
+import DevourAction from "./action/devourAction";
 import * as Helpers from "./gameHelpers";
-import {riceBag} from "./enemies";
 
 export function turn(state: GameState, playerAction: Action): GameState {
     let result = state;
@@ -41,9 +43,6 @@ export function enemyTurn(state: GameState): GameState {
 
     if (result.enemy.IsAlive === false) {
         result = Helpers.appendLog(result, `You have defeated the ${enemy.name}!`);
-        let newEnemy = riceBag;
-        result = Helpers.appendLog(result, `You encounter a ${newEnemy.name}!`);
-        result = result.setEnemy(newEnemy);
     }
     return result;
 }
@@ -51,7 +50,13 @@ export function enemyTurn(state: GameState): GameState {
 export function getAvailableActions(state: GameState): ActionMap {
     let availableActions: IActionMap = {};
     if (state.player.IsAlive) {
-        availableActions.c = new AttackAction();
+        if (state.enemy && state.enemy.IsAlive) {
+            availableActions.c = new AttackAction();
+        } else if (state.enemy) { // dead monster
+            availableActions.c = new DevourAction();
+        } else { // no monster
+            availableActions.c = new SpawnMonsterAction();
+        }
     }
     return ActionMap.from(availableActions);
 }

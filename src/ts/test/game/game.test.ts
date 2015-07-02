@@ -6,8 +6,12 @@ import * as chai from "chai";
 import * as sinon from "sinon";
 import * as Game from "../../game/game";
 import GameState from "../../game/gameState";
-import {actionMapOrder} from "../../game/actionMap";
-import {Action, EmptyAction, AttackAction} from "../../game/action";
+import {actionMapOrder} from "../../game/action/actionMap";
+import Action from "../../game/action/action";
+import EmptyAction from "../../game/action/emptyAction";
+import AttackAction from "../../game/action/attackAction";
+import DevourAction from "../../game/action/devourAction";
+import SpawnMonsterAction from "../../game/action/spawnMonsterAction";
 import {riceBag} from "../../game/enemies";
 
 const expect = chai.expect;
@@ -55,8 +59,7 @@ describe("game", () => {
                 enemy: riceBag.setHealth(0)
             }));
             let result = Game.turn(state, testAction);
-            // for now we just spawn a new enemy
-            expect(result.enemy.IsAlive).to.be.true;
+            expect(result.log.last()).to.contain("You have defeated the");
         });
 
         it("does nothing on player empty action", () => {
@@ -84,6 +87,20 @@ describe("game", () => {
             actionMapOrder.forEach((dir: string) => {
                 expect(actions[dir].isEmpty).to.be.true;
             });
+        });
+
+        it("returns devour when there is a dead monster", () => {
+            let state = new GameState(Immutable.Map({
+                enemy: riceBag.setHealth(0)
+            }));
+            let actions = Game.getAvailableActions(state);
+            expect(actions.c).to.be.an.instanceOf(DevourAction);
+        });
+
+        it("returns spawn when there is no monster", () => {
+            let state = new GameState(Immutable.Map({}));
+            let actions = Game.getAvailableActions(state);
+            expect(actions.c).to.be.an.instanceOf(SpawnMonsterAction);
         });
     });
 });

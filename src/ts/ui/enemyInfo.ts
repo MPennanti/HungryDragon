@@ -10,12 +10,13 @@ export interface EnemyInfoProps {
 export default class EnemyInfo extends React.Component<EnemyInfoProps, {}> {
 
     public render(): React.ReactElement<any> {
+        let contents: string | string[] = "No enemy";
+        if (this.props.enemy) {
+            contents = [this.props.enemy.name, " (", this._currentHealth(), ")"];
+        }
         return React.DOM.div(
             null,
-            this.props.enemy.name,
-            " (",
-            this._currentHealth(),
-            ")"
+            contents
         );
     }
 

@@ -2,7 +2,7 @@
 "use strict";
 import * as Immutable from "immutable";
 import Model from "./model";
-import {Action} from "./action";
+import Action from "./action/action";
 
 export interface IEntity {
     name: string;
