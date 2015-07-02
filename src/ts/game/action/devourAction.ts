@@ -14,7 +14,8 @@ export default class DevourAction extends Action {
 
         if (enemy) {
             result = Helpers.appendLog(result, `You consume the ${enemy.name}!`);
-            result = result.setEnemy(null);
+            this._actor = this._actor.setStomachFullness(this._actor.stomachFullness + enemy.mass);
+            this._target = null;
         }
         return result;
     }

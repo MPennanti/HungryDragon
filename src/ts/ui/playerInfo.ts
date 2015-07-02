@@ -9,14 +9,17 @@ export interface PlayerInfoProps {
 
 export default class PlayerInfo extends React.Component<PlayerInfoProps, {}> {
     public render(): React.ReactElement<any> {
+        let player = this.props.player;
+        let fullness = Math.floor((player.stomachFullness / player.stomachSize) * 100);
         return React.DOM.div(
             null,
-            this.props.player.name,
+            player.name,
             " (",
-            this.props.player.health,
+            Math.floor(player.health),
             "/",
-            this.props.player.maxHealth,
-            ")"
+            player.maxHealth,
+            ") ",
+            `Stomach: ${fullness}%`
         );
     }
 }

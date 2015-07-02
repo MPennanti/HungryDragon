@@ -4,7 +4,6 @@ import * as Immutable from "immutable";
 import Model from "./model";
 import Entity from "./entity";
 import { newPlayer } from "./player";
-import { riceBag } from "./enemies";
 
 export const MINUTE_LENGTH = 60;
 export const HOUR_LENGTH = MINUTE_LENGTH * 60;
@@ -102,9 +101,3 @@ export default class GameState extends Model {
     }
 
 }
-
-const defaultLog = Immutable.List<string>(["You see a bag of rice! Fight it!"]);
-export const defaultState = new GameState(Immutable.Map({
-    log: defaultLog,
-    enemy: riceBag
-}));

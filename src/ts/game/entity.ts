@@ -10,6 +10,8 @@ export interface IEntity {
     maxHealth: number;
     hitChance: number;
     damageText: string;
+    mass: number;
+    stomach?: number;
 }
 
 export interface IEnemy extends IEntity {
@@ -97,6 +99,46 @@ export default class Entity extends Model implements IEntity {
 
     protected set(name: string, value: any): Entity {
         return this.setValue(Entity, name, value);
+    }
+
+    /**
+     * How much of you there is
+     */
+    public get mass(): number {
+        return this._data.get("mass", 1);
+    }
+
+    public setMass(mass: number): Entity {
+        mass = Math.max(mass, 0);
+        return this.set("mass", mass);
+    }
+
+    /**
+     * The size of your stomach
+     */
+    public get stomachSize(): number {
+        return this._data.get("stomach", 0);
+    }
+
+    public setStomachSize(size: number): Entity {
+        size = Math.max(size, 0);
+        return this.set("stomach", size);
+    }
+
+    /**
+     * How full your stomach currently is
+     */
+    public get stomachFullness(): number {
+        return this._data.get("fullness", 0);
+    }
+
+    public setStomachFullness(size: number): Entity {
+        size = Math.max(size, 0);
+        return this.set("fullness", size);
+    }
+
+    public get IsOverfull(): boolean {
+        return this.stomachFullness > (1.5 * this.stomachSize);
     }
 }
 

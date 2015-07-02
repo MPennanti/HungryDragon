@@ -29,19 +29,21 @@ export default class Shell extends React.Component<{}, UIState> {
     }
 
     public render(): React.ReactElement<any> {
+        let state = this.state.gameState;
         return React.DOM.div(
             null,
+            React.DOM.div(null, state.prettyTime),
             React.createElement(PlayerInfo, {
-                player: this.state.gameState.player
+                player: state.player
             }),
             React.createElement(LogViewer, {
-                log: this.state.gameState.log
+                log: state.log
             }),
             React.createElement(EnemyInfo, {
-                enemy: this.state.gameState.enemy
+                enemy: state.enemy
             }),
             React.createElement(ActionGrid, {
-                actionMap: Game.getAvailableActions(this.state.gameState),
+                actionMap: Game.getAvailableActions(state),
                 onActionExecute: this.handleActionInput.bind(this)
             })
         );

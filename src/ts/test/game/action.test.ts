@@ -8,7 +8,9 @@ import EmptyAction from "../../game/action/emptyAction";
 import AttackAction from "../../game/action/attackAction";
 import DevourAction from "../../game/action/devourAction";
 import SpawnMonsterAction from "../../game/action/spawnMonsterAction";
-import GameState, {defaultState} from "../../game/gameState";
+import RestAction from "../../game/action/restAction";
+import {defaultState} from "../../game/game";
+import GameState, {HOUR_LENGTH} from "../../game/gameState";
 import {riceBag} from "../../game/enemies";
 
 let luckyEnemy = riceBag.setHitChance(1).setHitDamage(1);
@@ -76,6 +78,17 @@ describe("Action", () => {
             let state = new GameState(Immutable.Map({}));
             let result = spawnMonsterAction.execute(state, state.player);
             expect(result.enemy).to.equal(riceBag);
+        });
+
+    });
+
+    describe("RestAction", () => {
+        let action = new RestAction();
+
+        it("waits for an hour", () => {
+            let state = new GameState(Immutable.Map({}));
+            let result = action.execute(state, state.player);
+            expect(result.time).to.equal(state.time + HOUR_LENGTH);
         });
 
     });

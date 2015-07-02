@@ -1,13 +1,16 @@
 ///<reference path="../../../typings/references.d.ts"/>
 "use strict";
 
+import * as Immutable from "immutable";
 import GameState from "./gameState";
 import ActionMap, {IActionMap} from "./action/actionMap";
 import Action from "./action/action";
 import AttackAction from "./action/attackAction";
 import SpawnMonsterAction from "./action/spawnMonsterAction";
 import DevourAction from "./action/devourAction";
+import RestAction from "./action/restAction";
 import * as Helpers from "./gameHelpers";
+import {riceBag} from "./enemies";
 
 export function turn(state: GameState, playerAction: Action): GameState {
     let result = state;
@@ -56,9 +59,14 @@ export function getAvailableActions(state: GameState): ActionMap {
             availableActions.c = new DevourAction();
         } else { // no monster
             availableActions.c = new SpawnMonsterAction();
+            availableActions.n = new RestAction();
         }
     }
     return ActionMap.from(availableActions);
 }
 
-export { defaultState } from "./gameState";
+const defaultLog = Immutable.List<string>(["You see a bag of rice! Fight it!"]);
+export const defaultState = new GameState(Immutable.Map({
+    log: defaultLog,
+    enemy: riceBag
+}));

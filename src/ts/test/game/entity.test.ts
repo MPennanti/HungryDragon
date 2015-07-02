@@ -68,6 +68,27 @@ describe("entity", () => {
             let result = entity.setHitDamage(-5);
             expect(result.hitDamage).to.equal(0);
         });
+
+        it("sets mass", () => {
+            let result = entity.setMass(10);
+            expect(result.mass).to.equal(10);
+        });
+
+        it("sets stomachsize", () => {
+            let result = entity.setStomachSize(10);
+            expect(result.stomachSize).to.equal(10);
+        });
+
+        it("sets fullness", () => {
+            let result = entity.setStomachFullness(10);
+            expect(result.stomachFullness).to.equal(10);
+        });
+
+        it("detects being overfull", () => {
+            let result = entity.setStomachFullness(10);
+            result = result.setStomachSize(5);
+            expect(result.IsOverfull).to.be.true;
+        });
     });
 
     describe("default new player", () => {
