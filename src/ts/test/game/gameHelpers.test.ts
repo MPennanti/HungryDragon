@@ -40,42 +40,54 @@ describe("gameHelpers", () => {
             expect(result.player.stomachFullness).to.be.lessThan(15);
         });
 
-        it("handles overfull", () => {
+        it("heals you completely after fully digesting", () => {
             let player = defaultState.player;
-            player = player.setStomachFullness(20);
-            player = player.setStomachSize(10);
+            player = player.setHealth(0);
+            player = player.setStomachFullness(player.stomachSize);
             let result = defaultState.setPlayer(player);
-            result = Helpers.digest(result, 1);
-            expect(result.log.last()).to.contain("groans");
+            result = Helpers.digest(result, HOUR_LENGTH * 8);
+            expect(result.player.health).to.equal(player.maxHealth);
+        });
+    });
+
+    describe("getStomachText", () => {
+        it("handles overfull", () => {
+            let result = Helpers.getStomachText(2, true);
+            expect(result).to.contain("groans");
+        });
+
+        it("handles full", () => {
+            let result = Helpers.getStomachText(1, false);
+            expect(result).to.contain("fullness");
         });
 
         it("handles empty", () => {
-            let player = defaultState.player;
-            player = player.setStomachFullness(0);
-            player = player.setStomachSize(10);
-            let result = defaultState.setPlayer(player);
-            result = Helpers.digest(result, 1);
-            expect(result.log.last()).to.contain("ravenous");
+            let result = Helpers.getStomachText(0, false);
+            expect(result).to.contain("ravenous");
         });
 
         it("handles hungry", () => {
+            let result = Helpers.getStomachText(.1, false);
+            expect(result).to.contain("hungrily");
+        });
+    });
+
+    describe("updatePlayerMass", () => {
+        it("increases stats with mass", () => {
             let player = defaultState.player;
-            player = player.setStomachFullness(1);
-            player = player.setStomachSize(10);
-            let result = defaultState.setPlayer(player);
-            result = Helpers.digest(result, 1);
-            expect(result.log.last()).to.contain("hungrily");
+            let result = Helpers.updatePlayerMass(player, player.mass * 10);
+            expect(result.stomachSize).to.be.greaterThan(player.stomachSize);
+            expect(result.maxHealth).to.be.greaterThan(player.maxHealth);
+            expect(result.hitDamage).to.be.greaterThan(player.hitDamage);
         });
 
         it("heals you completely after fully digesting", () => {
             let player = defaultState.player;
             player = player.setHealth(0);
-            player = player.setMaxHealth(100);
-            player = player.setStomachFullness(10);
-            player = player.setStomachSize(10);
+            player = player.setStomachFullness(player.stomachSize);
             let result = defaultState.setPlayer(player);
             result = Helpers.digest(result, HOUR_LENGTH * 8);
-            expect(result.player.health).to.equal(100);
+            expect(result.player.health).to.equal(player.maxHealth);
         });
     });
 });

@@ -140,6 +140,11 @@ export default class Entity extends Model implements IEntity {
     public get IsOverfull(): boolean {
         return this.stomachFullness > (1.5 * this.stomachSize);
     }
+
+    /** The size of the player in cm given their mass */
+    public get size(): number {
+        return Math.round(4.02363 * Math.pow(this.mass, 0.872503));
+    }
 }
 
 export function makeEntity(entityDescriptor: IEntity): Entity {

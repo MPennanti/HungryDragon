@@ -11,6 +11,7 @@ export default class PlayerInfo extends React.Component<PlayerInfoProps, {}> {
     public render(): React.ReactElement<any> {
         let player = this.props.player;
         let fullness = Math.floor((player.stomachFullness / player.stomachSize) * 100);
+        let sizeInMeters = player.size / 100;
         return React.DOM.div(
             null,
             player.name,
@@ -18,8 +19,9 @@ export default class PlayerInfo extends React.Component<PlayerInfoProps, {}> {
             Math.floor(player.health),
             "/",
             player.maxHealth,
-            ") ",
-            `Stomach: ${fullness}%`
+            ")",
+            ` Stomach: ${fullness}%`,
+            ` Length: ${sizeInMeters}m`
         );
     }
 }
