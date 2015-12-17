@@ -6,6 +6,6 @@ import * as ReactDOM from "react-dom";
 import Shell from "./ui/shell";
 
 ReactDOM.render(
-    React.createElement(Shell),
+    <Shell/>,
     document.getElementById("app")
 );

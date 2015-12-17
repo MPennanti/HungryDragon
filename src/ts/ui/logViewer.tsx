@@ -9,12 +9,9 @@ export interface LogViewerProps {
 
 export default class LogViewer extends React.Component<LogViewerProps, {}> {
     public render(): React.ReactElement<any> {
-        let items = this.props.log.toArray().map((item: string) => {
-            return React.DOM.li(null, item);
+        let items = this.props.log.map((item: string, index: number) => {
+            return <li key={index}>{item}</li>;
         });
-        return React.DOM.ul(
-            null,
-            items
-        );
+        return <ul>{items}</ul>;
     }
 }

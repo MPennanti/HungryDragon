@@ -3,7 +3,7 @@
 
     module.exports = {
         src: {
-            src: ["src/ts/**/*.ts"],
+            src: ["src/ts/**/*.ts", "src/ts/**/*.tsx"],
             outDir: "dist/app" ,
             options: {
                 target: "ES5",
@@ -12,7 +12,8 @@
                 noImplicitAny: true,
                 declaration: false,
                 removeComments: false,
-                suppressImplicitAnyIndexErrors: true
+                suppressImplicitAnyIndexErrors: true,
+                jsx: "react"
             }
         },
     };

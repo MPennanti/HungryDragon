@@ -14,10 +14,7 @@ export default class EnemyInfo extends React.Component<EnemyInfoProps, {}> {
         if (this.props.enemy) {
             contents = [this.props.enemy.name, " (", this._currentHealth(), ")"];
         }
-        return React.DOM.div(
-            null,
-            contents
-        );
+        return <div>{contents}</div>;
     }
 
     private _currentHealth(): string {

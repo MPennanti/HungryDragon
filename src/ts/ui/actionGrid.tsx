@@ -13,27 +13,21 @@ export default class ActionGrid extends React.Component<ActionGridProps, {}> {
 
     public render(): React.ReactElement<any> {
         let actions = this.getActions(this.props.actionMap);
-        return React.DOM.div(
-            {
-                className: "hd-ActionGrid"
-            },
-            [actions]
-        );
+        return <div className="hd-ActionGrid">
+            {actions}
+        </div>;
     }
 
     public getActions(actionMap: ActionMap): React.ReactElement<any>[] {
         return actionMapOrder.map((direction: string): React.ReactElement<any> => {
-            return this.getAction(this.props.actionMap[direction]);
+            return this.getAction(this.props.actionMap[direction], direction);
         });
     }
 
-    public getAction(action: Action): React.ReactElement<any> {
-        return React.DOM.div(
-            {
-                className: "hd-ActionGrid-Cell"
-            },
-            React.DOM.button({ "onClick": this.handleClick.bind(this, action) }, action.name)
-        );
+    public getAction(action: Action, direction:string): React.ReactElement<any> {
+        return <div key={direction} className="hd-ActionGrid-Cell">
+            <button onClick={(ev) => this.handleClick(action, ev) }>{action.name}</button>
+        </div>;
     }
 
     public handleClick(action: Action, ev: React.MouseEvent): void {
