@@ -1,8 +1,6 @@
 ///<reference path="../../../typings/references.d.ts"/>
 "use strict";
-import * as Immutable from "immutable";
 import Model from "./model";
-import Action from "./action/action";
 
 export interface IEntity {
     name: string;
@@ -11,11 +9,6 @@ export interface IEntity {
     hitChance: number;
     damageText: string;
     mass: number;
-    stomach?: number;
-}
-
-export interface IEnemy extends IEntity {
-    defaultAction: typeof Action;
 }
 
 export default class Entity extends Model implements IEntity {
@@ -24,7 +17,7 @@ export default class Entity extends Model implements IEntity {
         return this._data.get("name", "Nameless");
     }
 
-    public setName(name: string): Entity {
+    public setName(name: string): this {
         return this.set("name", name);
     }
 
@@ -32,7 +25,7 @@ export default class Entity extends Model implements IEntity {
         return this._data.get("health", 0);
     }
 
-    public setHealth(health: number): Entity {
+    public setHealth(health: number): this {
         // stay within 0 - maxHealth
         health = Math.max(health, 0);
         health = Math.min(health, this.maxHealth);
@@ -43,7 +36,7 @@ export default class Entity extends Model implements IEntity {
         return this._data.get("maxHealth", 0);
     }
 
-    public setMaxHealth(health: number): Entity {
+    public setMaxHealth(health: number): this {
         health = Math.max(health, 0);
         let result = this.set("maxHealth", health);
         // ensure that health stays less than maxHealth
@@ -64,7 +57,7 @@ export default class Entity extends Model implements IEntity {
         return this._data.get("hitChance", 1);
     }
 
-    public setHitChance(hitChance: number): Entity {
+    public setHitChance(hitChance: number): this {
         hitChance = Math.max(hitChance, 0);
         hitChance = Math.min(hitChance, 1);
         return this.set("hitChance", hitChance);
@@ -77,7 +70,7 @@ export default class Entity extends Model implements IEntity {
         return this._data.get("hitDamage", 1);
     }
 
-    public setHitDamage(hitDamage: number): Entity {
+    public setHitDamage(hitDamage: number): this {
         hitDamage = Math.max(hitDamage, 0);
         return this.set("hitDamage", hitDamage);
     }
@@ -90,67 +83,18 @@ export default class Entity extends Model implements IEntity {
     }
 
     /**
-     * The default action monsters perform on their turn.
-     */
-    public get defaultAction(): Action {
-        let actionCtor: typeof Action = this._data.get("defaultAction");
-        return new actionCtor();
-    }
-
-    protected set(name: string, value: any): Entity {
-        return this.setValue(Entity, name, value);
-    }
-
-    /**
      * How much of you there is
      */
     public get mass(): number {
         return this._data.get("mass", 1);
     }
 
-    public setMass(mass: number): Entity {
+    public setMass(mass: number): this {
         mass = Math.max(mass, 0);
         return this.set("mass", mass);
     }
 
-    /**
-     * The size of your stomach
-     */
-    public get stomachSize(): number {
-        return this._data.get("stomach", 0);
+    static construct(entityDescriptor: IEntity): Entity {
+        return Model._construct(Entity, entityDescriptor);
     }
-
-    public setStomachSize(size: number): Entity {
-        size = Math.max(size, 0);
-        return this.set("stomach", size);
-    }
-
-    /**
-     * How full your stomach currently is
-     */
-    public get stomachFullness(): number {
-        return this._data.get("fullness", 0);
-    }
-
-    public setStomachFullness(size: number): Entity {
-        size = Math.max(size, 0);
-        return this.set("fullness", size);
-    }
-
-    public get IsOverfull(): boolean {
-        return this.stomachFullness > (1.5 * this.stomachSize);
-    }
-
-    /** The size of the player in cm given their mass */
-    public get size(): number {
-        return Math.round(4.02363 * Math.pow(this.mass, 0.872503));
-    }
-}
-
-export function makeEntity(entityDescriptor: IEntity): Entity {
-    return new Entity(Immutable.Map<string, any>(entityDescriptor));
-}
-
-export function makeEnemy(enemyDescriptor: IEnemy): Entity {
-    return makeEntity(enemyDescriptor);
 }

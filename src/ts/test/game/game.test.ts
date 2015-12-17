@@ -41,7 +41,7 @@ describe("game", () => {
             }));
             let enemyAction = new Action();
             let actionStub = sinon.stub(enemyAction, "doExecute").returnsArg(0);
-            let enemyStub = sinon.stub(riceBag, "defaultAction", { get: (): Action => enemyAction });
+            let enemyStub = sinon.stub(riceBag, "getAction", (): Action => enemyAction);
             Game.turn(state, testAction);
             enemyStub.restore();
             expect(actionStub.calledOnce).to.be.true;

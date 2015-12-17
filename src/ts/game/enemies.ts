@@ -1,9 +1,9 @@
 ///<reference path="../../../typings/references.d.ts"/>
 "use strict";
-import {makeEnemy} from "./entity";
+import Enemy from "./enemy";
 import AttackAction from "./action/attackAction";
 
-export const riceBag = makeEnemy({
+export const riceBag = Enemy.construct({
     name: "Bag of Rice",
     health: 5,
     maxHealth: 5,

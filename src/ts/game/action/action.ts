@@ -3,6 +3,8 @@
 
 import GameState from "../gameState";
 import Entity from "../entity";
+import Player from "../player";
+import Enemy from "../enemy";
 
 export default class Action {
 
@@ -28,10 +30,10 @@ export default class Action {
         let result = this.doExecute(state);
 
         if (this.player !== state.player) {
-            result = result.setPlayer(this.player);
+            result = result.setPlayer(this.player as Player);
         }
         if (this.enemy !== state.enemy) {
-            result = result.setEnemy(this.enemy);
+            result = result.setEnemy(this.enemy as Enemy);
         }
 
         return result;

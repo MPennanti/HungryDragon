@@ -2,8 +2,8 @@
 "use strict";
 import * as Immutable from "immutable";
 import Model from "./model";
-import Entity from "./entity";
-import { newPlayer } from "./player";
+import Player, { newPlayer } from "./player";
+import Enemy from "./enemy";
 
 export const MINUTE_LENGTH = 60;
 export const HOUR_LENGTH = MINUTE_LENGTH * 60;
@@ -73,31 +73,27 @@ export default class GameState extends Model {
     /**
      * The player herself
      */
-    public get player(): Entity {
+    public get player(): Player {
         return this._data.get("player", newPlayer);
     }
 
-    public setPlayer(player: Entity): GameState {
+    public setPlayer(player: Player): GameState {
         return this.set("player", player);
     }
 
     /**
      * The current active enemy (if one exists)
      */
-    public get enemy(): Entity {
+    public get enemy(): Enemy {
         return this._data.get("enemy");
     }
 
-    public setEnemy(enemy: Entity): GameState {
+    public setEnemy(enemy: Enemy): GameState {
         return this.set("enemy", enemy);
     }
 
     private leftPad(num: number): string {
         return num < 10 ? "0" + num : num.toString();
-    }
-
-    private set(name: string, value: any): GameState {
-        return this.setValue(GameState, name, value);
     }
 
 }

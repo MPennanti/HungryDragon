@@ -40,7 +40,7 @@ export function enemyTurn(state: GameState): GameState {
     let result = state;
     let enemy = state.enemy;
     if (enemy.IsAlive) {
-        let action = enemy.defaultAction;
+        let action = enemy.getAction();
         result = action.execute(state, enemy);
     }
 

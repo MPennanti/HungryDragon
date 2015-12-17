@@ -11,7 +11,12 @@ export default class Model {
         this._data = data;
     }
 
-    protected setValue<T extends Model>(type: { new (data: ImmutableObject): T; }, name: string, value: any): T {
-        return new type(this._data.set(name, value));
+    protected set(name: string, value: any): this {
+        let constructor: any = this.constructor;
+        return new constructor(this._data.set(name, value));
+    }
+
+    protected static _construct<T extends Model, U>(type: { new (data: ImmutableObject): T; }, data: U): T {
+        return new type(Immutable.Map<string, any>(data));
     }
 }

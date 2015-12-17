@@ -34,7 +34,7 @@ describe("gameHelpers", () => {
         it("reduces fullness", () => {
             let player = defaultState.player;
             player = player.setStomachFullness(15);
-            player = player.setStomachSize(10);
+            player = player.setStomach(10);
             let result = defaultState.setPlayer(player);
             result = Helpers.digest(result, 1);
             expect(result.player.stomachFullness).to.be.lessThan(15);
@@ -43,7 +43,7 @@ describe("gameHelpers", () => {
         it("heals you completely after fully digesting", () => {
             let player = defaultState.player;
             player = player.setHealth(0);
-            player = player.setStomachFullness(player.stomachSize);
+            player = player.setStomachFullness(player.stomach);
             let result = defaultState.setPlayer(player);
             result = Helpers.digest(result, HOUR_LENGTH * 8);
             expect(result.player.health).to.equal(player.maxHealth);
@@ -76,7 +76,7 @@ describe("gameHelpers", () => {
         it("increases stats with mass", () => {
             let player = defaultState.player;
             let result = Helpers.updatePlayerMass(player, player.mass * 10);
-            expect(result.stomachSize).to.be.greaterThan(player.stomachSize);
+            expect(result.stomach).to.be.greaterThan(player.stomach);
             expect(result.maxHealth).to.be.greaterThan(player.maxHealth);
             expect(result.hitDamage).to.be.greaterThan(player.hitDamage);
         });
@@ -84,7 +84,7 @@ describe("gameHelpers", () => {
         it("heals you completely after fully digesting", () => {
             let player = defaultState.player;
             player = player.setHealth(0);
-            player = player.setStomachFullness(player.stomachSize);
+            player = player.setStomachFullness(player.stomach);
             let result = defaultState.setPlayer(player);
             result = Helpers.digest(result, HOUR_LENGTH * 8);
             expect(result.player.health).to.equal(player.maxHealth);
