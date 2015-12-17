@@ -1,6 +1,6 @@
 ///<reference path="../../../typings/references.d.ts"/>
 "use strict";
-import * as React from "react/addons";
+import * as React from "react";
 import Entity from "../game/entity";
 
 export interface PlayerInfoProps {

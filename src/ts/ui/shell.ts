@@ -1,6 +1,6 @@
 ///<reference path="../../../typings/references.d.ts"/>
 "use strict";
-import * as React from "react/addons";
+import * as React from "react";
 import Action from "../game/action/action";
 import * as Game from "../game/game";
 import GameState from "../game/gameState";
