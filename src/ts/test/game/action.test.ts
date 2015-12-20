@@ -9,9 +9,11 @@ import AttackAction from "../../game/action/attackAction";
 import DevourAction from "../../game/action/devourAction";
 import SpawnMonsterAction from "../../game/action/spawnMonsterAction";
 import RestAction from "../../game/action/restAction";
+import MoveAction from "../../game/action/moveAction";
 import {defaultState} from "../../game/game";
 import GameState, {HOUR_LENGTH} from "../../game/gameState";
 import {riceBag} from "../../game/enemies";
+import Zone from "../../game/zone/zone";
 
 let luckyEnemy = riceBag.setHitChance(1).setHitDamage(1);
 let luckyPlayer = defaultState.player.setHitChance(1).setHitDamage(1);
@@ -89,6 +91,43 @@ describe("Action", () => {
             let state = new GameState(Immutable.Map({}));
             let result = action.execute(state, state.player);
             expect(result.time).to.equal(state.time + HOUR_LENGTH);
+        });
+
+    });
+
+    describe("MoveAction", () => {
+        let newZone = new Zone({
+            id: "newZone",
+            name: "Zone Name",
+            description: "",
+            monsterChance: 0,
+            nearbyZones: {}
+        });
+        let action = new MoveAction(newZone);
+
+        it("sets the action name", () => {
+            expect(action.name).to.equal(newZone.name);
+        });
+
+        it("changes the zone", () => {
+            let state = new GameState(Immutable.Map({}));
+            let result = action.execute(state, state.player);
+            expect(result.zone).to.equal(newZone.id);
+        });
+
+        it("spawns a monster", () => {
+            let scaryZone = new Zone({
+                id: "scaryZone",
+                name: "Zone Name",
+                description: "",
+                monsterChance: 1,
+                nearbyZones: {}
+            });
+            let action = new MoveAction(scaryZone);
+            let state = new GameState(Immutable.Map({}));
+            let result = action.execute(state, state.player);
+            expect(result.zone).to.equal(scaryZone.id);
+            expect(result.enemy).to.be.an("object");
         });
 
     });

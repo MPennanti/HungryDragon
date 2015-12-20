@@ -93,8 +93,4 @@ export default class Entity extends Model implements IEntity {
         mass = Math.max(mass, 0);
         return this.set("mass", mass);
     }
-
-    static construct(entityDescriptor: IEntity): Entity {
-        return Model._construct(Entity, entityDescriptor);
-    }
 }

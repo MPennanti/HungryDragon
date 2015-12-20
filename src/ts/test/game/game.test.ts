@@ -11,8 +11,9 @@ import Action from "../../game/action/action";
 import EmptyAction from "../../game/action/emptyAction";
 import AttackAction from "../../game/action/attackAction";
 import DevourAction from "../../game/action/devourAction";
-import SpawnMonsterAction from "../../game/action/spawnMonsterAction";
+import MoveAction from "../../game/action/moveAction";
 import {riceBag} from "../../game/enemies";
+import {strawPile} from "../../game/zone/startingArea";
 
 const expect = chai.expect;
 
@@ -99,8 +100,9 @@ describe("game", () => {
 
         it("returns spawn when there is no monster", () => {
             let state = new GameState(Immutable.Map({}));
+            state = state.setZone(strawPile);
             let actions = Game.getAvailableActions(state);
-            expect(actions.c).to.be.an.instanceOf(SpawnMonsterAction);
+            expect(actions.e).to.be.an.instanceOf(MoveAction);
         });
     });
 });

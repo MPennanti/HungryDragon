@@ -6,11 +6,10 @@ import GameState from "./gameState";
 import ActionMap, {IActionMap} from "./action/actionMap";
 import Action from "./action/action";
 import AttackAction from "./action/attackAction";
-import SpawnMonsterAction from "./action/spawnMonsterAction";
 import DevourAction from "./action/devourAction";
-import RestAction from "./action/restAction";
 import * as Helpers from "./gameHelpers";
-import {riceBag} from "./enemies";
+import ZoneMap from "./zone/zoneMap";
+import {strawPile} from "./zone/startingArea";
 
 export function turn(state: GameState, playerAction: Action): GameState {
     let result = state;
@@ -58,15 +57,14 @@ export function getAvailableActions(state: GameState): ActionMap {
         } else if (state.enemy) { // dead monster
             availableActions.c = new DevourAction();
         } else { // no monster
-            availableActions.c = new SpawnMonsterAction();
-            availableActions.n = new RestAction();
+            availableActions = ZoneMap[state.zone].getActionMap();
         }
     }
     return ActionMap.from(availableActions);
 }
 
-const defaultLog = Immutable.List<string>(["You see a bag of rice! Fight it!"]);
+const defaultLog = Immutable.List<string>(["You wake up on a pile of straw."]);
 export const defaultState = new GameState(Immutable.Map({
     log: defaultLog,
-    enemy: riceBag
+    zone: strawPile
 }));

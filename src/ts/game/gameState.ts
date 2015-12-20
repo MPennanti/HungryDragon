@@ -20,7 +20,7 @@ export default class GameState extends Model {
         return this._data.get("time", 0);
     }
 
-    public setTime(time: number): GameState {
+    public setTime(time: number): this {
         return this.set("time", time);
     }
 
@@ -66,7 +66,7 @@ export default class GameState extends Model {
         return this._data.get("log", emptyList);
     }
 
-    public setLog(log: Immutable.List<string>): GameState {
+    public setLog(log: Immutable.List<string>): this {
         return this.set("log", log);
     }
 
@@ -77,7 +77,7 @@ export default class GameState extends Model {
         return this._data.get("player", newPlayer);
     }
 
-    public setPlayer(player: Player): GameState {
+    public setPlayer(player: Player): this {
         return this.set("player", player);
     }
 
@@ -88,8 +88,19 @@ export default class GameState extends Model {
         return this._data.get("enemy");
     }
 
-    public setEnemy(enemy: Enemy): GameState {
+    public setEnemy(enemy: Enemy): this {
         return this.set("enemy", enemy);
+    }
+
+    /**
+     * The id of the active zone
+     */
+    public get zone(): string {
+        return this._data.get("zone");
+    }
+
+    public setZone(zone: string): this {
+        return this.set("zone", zone);
     }
 
     private leftPad(num: number): string {
