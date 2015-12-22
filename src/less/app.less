@@ -17,3 +17,63 @@
     height: 100%;
     width: 100%;
 }
+
+ul, div {
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    margin: 0;
+    font-weight: 400;
+    font-family: "Roboto", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #222;
+}
+
+button {
+    font-family: "Roboto", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 1em;
+}
+
+#app {
+    height: 100%;
+}
+
+.hd-Shell {
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+}
+
+.hd-PlayerPane {
+    width: 200px;
+    padding: 5px;
+    border: 2px black solid;
+    flex: 1;
+}
+
+.hd-MainPane {
+    flex: 3;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.hd-LogArea {
+    flex: 1;
+    margin: 0 0 5px 0;
+    border: 1px grey solid;
+    min-height: 200px;
+    overflow-y: auto;
+}
+
+.hd-EnemyPane {
+    width: 200px;
+    padding: 5px;
+    border: 2px black solid;
+    flex: 1;
+}

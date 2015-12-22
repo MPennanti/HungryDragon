@@ -30,15 +30,23 @@ export default class Shell extends React.Component<{}, UIState> {
 
     public render(): React.ReactElement<any> {
         let state = this.state.gameState;
-        return <div>
-            <div>{state.prettyTime}</div>
-            <PlayerInfo player={state.player} />
-            <LogViewer log={state.log} />
-            <EnemyInfo enemy={state.enemy} />
-            <ActionGrid
-                actionMap={Game.getAvailableActions(state) }
-                onActionExecute={(action: Action) => this.handleActionInput(action) }
-            />
+        return <div className="hd-Shell">
+            <div className="hd-PlayerPane">
+                <div>{state.prettyTime}</div>
+                <PlayerInfo player={state.player} />
+            </div>
+            <div className="hd-MainPane">
+                <LogViewer log={state.log} />
+                <div className="hd-ActionArea">
+                    <ActionGrid
+                        actionMap={Game.getAvailableActions(state) }
+                        onActionExecute={(action: Action) => this.handleActionInput(action) }
+                    />
+                </div>
+            </div>
+            <div className="hd-EnemyPane">
+                <EnemyInfo enemy={state.enemy} />
+            </div>
         </div>;
     }
 }
