@@ -1,4 +1,4 @@
-import Entity from "../../game/entity";
+import Entity from "./entity";
 import * as Immutable from "immutable";
 import * as chai from "chai";
 

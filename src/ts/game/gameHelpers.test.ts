@@ -1,6 +1,6 @@
-import * as Helpers from "../../game/gameHelpers";
-import { HOUR_LENGTH } from "../../game/gameState";
-import { defaultState } from "../../game/game";
+import * as Helpers from "./gameHelpers";
+import { HOUR_LENGTH } from "./gameState";
+import { defaultState } from "./game";
 import * as chai from "chai";
 
 const expect = chai.expect;

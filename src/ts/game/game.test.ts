@@ -1,16 +1,16 @@
 import * as Immutable from "immutable";
 import * as chai from "chai";
 import * as sinon from "sinon";
-import * as Game from "../../game/game";
-import GameState from "../../game/gameState";
-import {actionMapOrder} from "../../game/action/actionMap";
-import Action from "../../game/action/action";
-import EmptyAction from "../../game/action/emptyAction";
-import AttackAction from "../../game/action/attackAction";
-import DevourAction from "../../game/action/devourAction";
-import MoveAction from "../../game/action/moveAction";
-import {riceBag} from "../../game/enemies";
-import {strawPile} from "../../game/zone/startingArea";
+import * as Game from "./game";
+import GameState from "./gameState";
+import {actionMapOrder} from "./action/actionMap";
+import Action from "./action/action";
+import EmptyAction from "./action/emptyAction";
+import AttackAction from "./action/attackAction";
+import DevourAction from "./action/devourAction";
+import MoveAction from "./action/moveAction";
+import {riceBag} from "./enemies";
+import {strawPile} from "./zone/startingArea";
 
 const expect = chai.expect;
 

@@ -1,4 +1,4 @@
-import Player, { newPlayer } from "../../game/player";
+import Player, { newPlayer } from "./player";
 import * as Immutable from "immutable";
 import * as chai from "chai";
 

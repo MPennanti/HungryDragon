@@ -1,16 +1,16 @@
 import * as Immutable from "immutable";
 import * as chai from "chai";
-import Action from "../../game/action/action";
-import EmptyAction from "../../game/action/emptyAction";
-import AttackAction from "../../game/action/attackAction";
-import DevourAction from "../../game/action/devourAction";
-import SpawnMonsterAction from "../../game/action/spawnMonsterAction";
-import RestAction from "../../game/action/restAction";
-import MoveAction from "../../game/action/moveAction";
-import {defaultState} from "../../game/game";
-import GameState, {HOUR_LENGTH} from "../../game/gameState";
-import {riceBag} from "../../game/enemies";
-import Zone from "../../game/zone/zone";
+import Action from "./action";
+import EmptyAction from "./emptyAction";
+import AttackAction from "./attackAction";
+import DevourAction from "./devourAction";
+import SpawnMonsterAction from "./spawnMonsterAction";
+import RestAction from "./restAction";
+import MoveAction from "./moveAction";
+import {defaultState} from "../game";
+import GameState, {HOUR_LENGTH} from "../gameState";
+import {riceBag} from "../enemies";
+import Zone from "../zone/zone";
 
 let luckyEnemy = riceBag.setHitChance(1).setHitDamage(1);
 let luckyPlayer = defaultState.player.setHitChance(1).setHitDamage(1);

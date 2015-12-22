@@ -1,4 +1,4 @@
-import { format } from "../../util/string";
+import { format } from "./string";
 import * as chai from "chai";
 
 const expect = chai.expect;

@@ -1,6 +1,6 @@
 import * as chai from "chai";
-import EmptyAction from "../../game/action/emptyAction";
-import ActionMap, {actionMapOrder} from "../../game/action/actionMap";
+import EmptyAction from "./emptyAction";
+import ActionMap, {actionMapOrder} from "./actionMap";
 
 const expect = chai.expect;
 

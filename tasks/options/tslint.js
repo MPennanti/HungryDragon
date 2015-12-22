@@ -7,7 +7,7 @@
                 configuration: grunt.file.readJSON("tslint.json"),
             },
             files: {
-                src: ["src/ts/**/*.ts", "test/**/*.ts"]
+                src: ["src/ts/**/*.ts"]
             }
         };
     };

@@ -3,7 +3,7 @@
 
     module.exports = {
         test: {
-            src: ["dist/app/test/**/*.test.js"],
+            src: ["dist/app/**/*.test.js"],
             options: {
                 reporter: 'spec'
             }

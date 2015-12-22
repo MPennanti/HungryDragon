@@ -3,7 +3,7 @@
 
     module.exports = {
         coverage: {
-            src: "dist/app/test/**/*.js",
+            src: "dist/app/**/*.test.js",
             options: {
                 mask: "*.test.js"
             }
