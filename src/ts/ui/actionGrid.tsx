@@ -1,5 +1,3 @@
-///<reference path="../../../typings/references.d.ts"/>
-"use strict";
 import * as React from "react";
 import Action from "../game/action/action";
 import ActionMap, {actionMapOrder} from "../game/action/actionMap";

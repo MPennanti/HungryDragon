@@ -1,5 +1,3 @@
-///<reference path="../../../typings/references.d.ts"/>
-"use strict";
 import Entity, {IEntity} from "./entity";
 import Action from "./action/action";
 import Model from "./model";

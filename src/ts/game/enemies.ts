@@ -1,5 +1,3 @@
-///<reference path="../../../typings/references.d.ts"/>
-"use strict";
 import Enemy from "./enemy";
 import AttackAction from "./action/attackAction";
 

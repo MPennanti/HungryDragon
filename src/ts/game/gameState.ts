@@ -1,5 +1,3 @@
-///<reference path="../../../typings/references.d.ts"/>
-"use strict";
 import * as Immutable from "immutable";
 import Model from "./model";
 import Player, { newPlayer } from "./player";

@@ -1,6 +1,3 @@
-///<reference path="../../../../typings/test.references.d.ts"/>
-"use strict";
-
 import * as Immutable from "immutable";
 import * as chai from "chai";
 import Action from "../../game/action/action";

@@ -1,5 +1,3 @@
-///<reference path="../../../typings/references.d.ts"/>
-"use strict";
 import Model from "./model";
 
 export interface IEntity {

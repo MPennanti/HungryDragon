@@ -1,6 +1,3 @@
-///<reference path="../../../../typings/references.d.ts"/>
-"use strict";
-
 import GameState, {HOUR_LENGTH} from "../gameState";
 import * as Helpers from "../gameHelpers";
 import Action from "./action";

@@ -1,5 +1,3 @@
-///<reference path="../../../typings/references.d.ts"/>
-"use strict";
 import * as Immutable from "immutable";
 
 export type ImmutableObject = Immutable.Map<string, any>;

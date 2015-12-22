@@ -1,6 +1,3 @@
-///<reference path="../../../typings/references.d.ts"/>
-"use strict";
-
 import * as Immutable from "immutable";
 import GameState from "./gameState";
 import ActionMap, {IActionMap} from "./action/actionMap";

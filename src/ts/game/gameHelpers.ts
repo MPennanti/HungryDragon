@@ -1,6 +1,3 @@
-///<reference path="../../../typings/references.d.ts"/>
-"use strict";
-
 import * as Immutable from "immutable";
 import GameState, {HOUR_LENGTH} from "./gameState";
 import Player from "./player";

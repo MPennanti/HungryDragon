@@ -1,6 +1,3 @@
-///<reference path="../../../../typings/test.references.d.ts"/>
-"use strict";
-
 import { format } from "../../util/string";
 import * as chai from "chai";
 

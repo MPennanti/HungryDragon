@@ -1,6 +1,3 @@
-///<reference path="../../../../typings/references.d.ts"/>
-"use strict";
-
 import GameState from "../gameState";
 import * as Helpers from "../gameHelpers";
 import {format} from "../../util/string";

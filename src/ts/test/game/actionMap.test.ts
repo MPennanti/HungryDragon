@@ -1,6 +1,3 @@
-///<reference path="../../../../typings/test.references.d.ts"/>
-"use strict";
-
 import * as chai from "chai";
 import EmptyAction from "../../game/action/emptyAction";
 import ActionMap, {actionMapOrder} from "../../game/action/actionMap";

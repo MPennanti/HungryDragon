@@ -1,6 +1,3 @@
-///<reference path="../../../../typings/test.references.d.ts"/>
-"use strict";
-
 import * as Helpers from "../../game/gameHelpers";
 import { HOUR_LENGTH } from "../../game/gameState";
 import { defaultState } from "../../game/game";
