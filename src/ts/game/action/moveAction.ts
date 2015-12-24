@@ -2,7 +2,6 @@ import GameState from "../gameState";
 import * as Helpers from "../gameHelpers";
 import Action from "./action";
 import Zone from "../zone/zone";
-import {riceBag} from "../enemies";
 
 export default class MoveAction extends Action {
     public name = "Move";
@@ -20,11 +19,7 @@ export default class MoveAction extends Action {
         result = result.setZone(this.targetZone.id);
         result = Helpers.appendLog(result, `You travel to ${this.targetZone.name}`);
         result = Helpers.appendLog(result, this.targetZone.description);
-
-        if (!result.enemy && Math.random() < this.targetZone.monsterChance) {
-            result = result.setEnemy(riceBag);
-            result = Helpers.appendLog(result, `You encounter a ${result.enemy.name}!`);
-        }
+        result = result.setCanSpawn(true);
 
         return result;
     }

@@ -5,6 +5,7 @@ import Action from "./action/action";
 import AttackAction from "./action/attackAction";
 import DevourAction from "./action/devourAction";
 import * as Helpers from "./gameHelpers";
+import Zone from "./zone/zone";
 import ZoneMap from "./zone/zoneMap";
 import {strawPile} from "./zone/startingArea";
 
@@ -19,7 +20,8 @@ export function turn(state: GameState, playerAction: Action): GameState {
 
     if (result.player.IsAlive) {
         result = playerAction.execute(result, result.player);
-
+        let zone = ZoneMap[result.zone];
+        result = spawnMonster(result, zone);
         if (result.enemy) {
             result = enemyTurn(result);
         }
@@ -58,6 +60,20 @@ export function getAvailableActions(state: GameState): ActionMap {
         }
     }
     return ActionMap.from(availableActions);
+}
+
+export function spawnMonster(state: GameState, zone: Zone): GameState {
+    let result = state;
+
+    if (!result.enemy && result.canSpawn) {
+        result = result.setCanSpawn(false);
+        if (Math.random() < zone.monsterChance) {
+            result = result.setEnemy(zone.getMonster());
+            result = Helpers.appendLog(result, `You encounter a ${result.enemy.name}!`);
+        }
+    }
+
+    return result;
 }
 
 const defaultLog = Immutable.List<string>(["You wake up on a pile of straw."]);

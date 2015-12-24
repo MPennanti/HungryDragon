@@ -5,6 +5,7 @@ export interface IEntity {
     health: number;
     maxHealth: number;
     hitChance: number;
+    hitDamage?: number;
     damageText: string;
     mass: number;
 }

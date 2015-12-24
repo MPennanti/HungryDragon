@@ -101,6 +101,18 @@ export default class GameState extends Model {
         return this.set("zone", zone);
     }
 
+    /**
+     * A flag set by certain actions when a monster should be able to spawn
+     * in the current area, if the area supports this.
+     */
+    public get canSpawn(): boolean {
+        return this._data.get("canSpawn", false);
+    }
+
+    public setCanSpawn(canSpawn: boolean) : this {
+        return this.set("canSpawn", canSpawn);
+    }
+
     private leftPad(num: number): string {
         return num < 10 ? "0" + num : num.toString();
     }

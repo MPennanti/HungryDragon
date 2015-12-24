@@ -97,6 +97,7 @@ describe("Action", () => {
             id: "newZone",
             name: "Zone Name",
             description: "",
+            monsters: [],
             monsterChance: 0,
             nearbyZones: {}
         });
@@ -112,11 +113,12 @@ describe("Action", () => {
             expect(result.zone).to.equal(newZone.id);
         });
 
-        it("spawns a monster", () => {
+        it("can spawn a monster", () => {
             let scaryZone = new Zone({
                 id: "scaryZone",
                 name: "Zone Name",
                 description: "",
+                monsters: [],
                 monsterChance: 1,
                 nearbyZones: {}
             });
@@ -124,7 +126,7 @@ describe("Action", () => {
             let state = new GameState(Immutable.Map({}));
             let result = action.execute(state, state.player);
             expect(result.zone).to.equal(scaryZone.id);
-            expect(result.enemy).to.be.an("object");
+            expect(result.canSpawn).to.be.true;
         });
 
     });

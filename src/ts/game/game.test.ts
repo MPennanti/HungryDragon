@@ -95,11 +95,55 @@ describe("game", () => {
             expect(actions.c).to.be.an.instanceOf(DevourAction);
         });
 
-        it("returns spawn when there is no monster", () => {
+        it("returns move when there is no monster", () => {
             let state = new GameState(Immutable.Map({}));
             state = state.setZone(strawPile);
             let actions = Game.getAvailableActions(state);
             expect(actions.e).to.be.an.instanceOf(MoveAction);
+        });
+    });
+
+    describe("spawnMonster", () => {
+        it("does nothing when there is a monster", () => {
+            let state = new GameState(Immutable.Map({
+                enemy: riceBag,
+                canSpawn: true
+            }));
+            let zone: any = {};
+            let result = Game.spawnMonster(state, zone);
+            expect(result).to.equal(state);
+        });
+
+        it("does nothing when canSpawn is false", () => {
+            let state = new GameState(Immutable.Map({
+                canSpawn: false
+            }));
+            let zone: any = {};
+            let result = Game.spawnMonster(state, zone);
+            expect(result).to.equal(state);
+        });
+
+        it("clears canSpawn when monster chance is zero", () => {
+            let state = new GameState(Immutable.Map({
+                canSpawn: true
+            }));
+            let zone: any = { monsterChance: 0 };
+            let result = Game.spawnMonster(state, zone);
+            expect(result.canSpawn).to.be.false;
+        });
+
+        it("spawns a monster", () => {
+            let state = new GameState(Immutable.Map({
+                canSpawn: true
+            }));
+            let monster: any = {};
+            let zone: any = {
+                monsterChance: 1,
+                getMonster: (): any => { return monster; }
+            };
+            let result = Game.spawnMonster(state, zone);
+            expect(result.canSpawn).to.be.false;
+            expect(result.enemy).to.equal(monster);
         });
     });
 });

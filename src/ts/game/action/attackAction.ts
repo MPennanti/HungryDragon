@@ -10,7 +10,7 @@ export default class AttackAction extends Action {
         let result = state;
 
         if (this._target && Math.random() < this._actor.hitChance) {
-            let damage = this._actor.hitDamage;
+            let damage = Math.floor(Math.random() * this._actor.hitDamage + 1);
             result = Helpers.appendLog(state, format(this._actor.damageText, damage, this._target.name));
             this._target = this._target.setHealth(this._target.health - damage);
         }
