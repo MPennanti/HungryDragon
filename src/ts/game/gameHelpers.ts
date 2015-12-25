@@ -3,6 +3,8 @@ import GameState, {HOUR_LENGTH} from "./gameState";
 import Player from "./player";
 
 const GROWTH_RATE = .05;
+// when stomach is more than 100% full, the player grows
+const GROWTH_THRESHOLD = 1;
 
 export function tick(state: GameState, seconds: number): GameState {
     seconds = Math.floor(seconds);
@@ -28,10 +30,10 @@ export function digest(state: GameState, seconds: number): GameState {
             let healAmount = (originalFullness - fullness) * player.maxHealth;
             player = player.setHealth(player.health + healAmount);
         }
-        // above 25% stomach capacity, we're going to grow
-        if (originalFullness > .25) {
-            let growthFactor = (originalFullness - Math.max(fullness, .25));
-            let newMass = player.mass + growthFactor / .75 * GROWTH_RATE * player.mass;
+        // above stomach capacity, we're going to grow
+        if (originalFullness > GROWTH_THRESHOLD) {
+            let growthFactor = (originalFullness - Math.max(fullness, GROWTH_THRESHOLD));
+            let newMass = player.mass + growthFactor * GROWTH_RATE * player.mass;
             player = updatePlayerMass(player, newMass);
         }
         result = result.setPlayer(player);
