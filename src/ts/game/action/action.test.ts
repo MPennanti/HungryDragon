@@ -5,6 +5,7 @@ import EmptyAction from "./emptyAction";
 import AttackAction from "./attackAction";
 import DevourAction from "./devourAction";
 import SpawnMonsterAction from "./spawnMonsterAction";
+import SpareMonsterAction from "./spareMonsterAction";
 import RestAction from "./restAction";
 import SleepAction from "./sleepAction";
 import MoveAction from "./moveAction";
@@ -78,6 +79,19 @@ describe("Action", () => {
             let state = new GameState(Immutable.Map({}));
             let result = spawnMonsterAction.execute(state, state.player);
             expect(result.enemy).to.equal(riceBag);
+        });
+
+    });
+
+    describe("SpareMonsterAction", () => {
+        let spareMonsterAction = new SpareMonsterAction();
+
+        it("lets the monster go", () => {
+            let state = new GameState(Immutable.Map({
+                enemy: riceBag
+            }));
+            let result = spareMonsterAction.execute(state, state.player);
+            expect(result.enemy).to.be.null;
         });
 
     });

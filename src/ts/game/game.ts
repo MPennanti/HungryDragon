@@ -5,6 +5,7 @@ import Action from "./action/action";
 import AttackAction from "./action/attackAction";
 import DevourAction from "./action/devourAction";
 import RestAction from "./action/restAction";
+import SpareMonsterAction from "./action/spareMonsterAction";
 import * as Helpers from "./gameHelpers";
 import Zone from "./zone/zone";
 import ZoneMap from "./zone/zoneMap";
@@ -63,7 +64,10 @@ export function getAvailableActions(state: GameState): ActionMap {
         if (state.enemy && state.enemy.IsAlive) {
             availableActions.c = new AttackAction();
         } else if (state.enemy) { // dead monster
-            availableActions.c = new DevourAction();
+            if (!state.player.IsOverfull) {
+                availableActions.c = new DevourAction();
+            }
+            availableActions.s = new SpareMonsterAction();
         } else if (!state.player.IsOverfull) { // no monster
             availableActions = ZoneMap[state.zone].getActionMap();
         }
