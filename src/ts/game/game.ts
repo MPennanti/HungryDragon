@@ -8,6 +8,7 @@ import * as Helpers from "./gameHelpers";
 import Zone from "./zone/zone";
 import ZoneMap from "./zone/zoneMap";
 import {strawPile} from "./zone/startingArea";
+import * as Random from "../util/random";
 
 export function turn(state: GameState, playerAction: Action): GameState {
     let result = state;
@@ -67,7 +68,7 @@ export function spawnMonster(state: GameState, zone: Zone): GameState {
 
     if (!result.enemy && result.canSpawn) {
         result = result.setCanSpawn(false);
-        if (Math.random() < zone.monsterChance) {
+        if (Random.bool(zone.monsterChance)) {
             result = result.setEnemy(zone.getMonster());
             result = Helpers.appendLog(result, `You encounter a ${result.enemy.name}!`);
         }

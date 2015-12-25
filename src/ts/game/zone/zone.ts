@@ -3,6 +3,7 @@ import MoveAction from "../action/moveAction";
 import RestAction from "../action/restAction";
 import ZoneMap from "./zoneMap";
 import Enemy from "../enemy";
+import * as Random from "../../util/random";
 
 export interface INearbyZones {
     nw?: string;
@@ -43,8 +44,7 @@ export default class Zone {
     }
 
     public getMonster(): Enemy {
-        let index = Math.floor(Math.random() * this.monsters.length);
-        return this.monsters[index];
+        return Random.pick(this.monsters);
     }
 
     public getActionMap(): IActionMap {
