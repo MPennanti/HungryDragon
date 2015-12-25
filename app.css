@@ -62,3 +62,16 @@ button {
   border: 2px black solid;
   flex: 1;
 }
+.hd-ActionArea {
+  display: flex;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+}
+.hd-ActionBar {
+  flex: 1;
+  padding: 0 10px;
+}
+.hd-ActionBar-Action button {
+  width: 100%;
+}
