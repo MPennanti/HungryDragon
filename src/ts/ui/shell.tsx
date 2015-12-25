@@ -6,6 +6,7 @@ import PlayerInfo from "./playerInfo";
 import LogViewer from "./logViewer";
 import EnemyInfo from "./enemyInfo";
 import ActionGrid from "./actionGrid";
+import ActionBar from "./actionBar";
 
 export interface UIState {
     gameState: GameState;
@@ -38,6 +39,10 @@ export default class Shell extends React.Component<{}, UIState> {
                 <div className="hd-ActionArea">
                     <ActionGrid
                         actionMap={Game.getAvailableActions(state) }
+                        onActionExecute={(action: Action) => this.handleActionInput(action) }
+                    />
+                    <ActionBar
+                        actions={ Game.getAuxiliaryActions(state) }
                         onActionExecute={(action: Action) => this.handleActionInput(action) }
                     />
                 </div>

@@ -1,6 +1,6 @@
 import { IActionMap } from "../action/actionMap";
 import MoveAction from "../action/moveAction";
-import RestAction from "../action/restAction";
+import SleepAction from "../action/sleepAction";
 import ZoneMap from "./zoneMap";
 import Enemy from "../enemy";
 import * as Random from "../../util/random";
@@ -52,8 +52,8 @@ export default class Zone {
         Object.keys(this.nearbyZones).forEach((direction: string) => {
             let targetZone: string = this.nearbyZones[direction];
             if (targetZone) {
-                if (targetZone === "rest") {
-                    actionConfig[direction] = new RestAction();
+                if (targetZone === "sleep") {
+                    actionConfig[direction] = new SleepAction();
                 } else {
                     actionConfig[direction] = new MoveAction(ZoneMap[targetZone]);
                 }

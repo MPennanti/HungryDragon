@@ -32,7 +32,7 @@ export default class Player extends Entity implements IPlayer {
     }
 
     public get IsOverfull(): boolean {
-        return this.stomachFullness > (1.5 * this.stomach);
+        return this.stomachFullness > (3 * this.stomach);
     }
 
     /** The size of the player in cm given their mass */

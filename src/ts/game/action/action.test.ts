@@ -6,6 +6,7 @@ import AttackAction from "./attackAction";
 import DevourAction from "./devourAction";
 import SpawnMonsterAction from "./spawnMonsterAction";
 import RestAction from "./restAction";
+import SleepAction from "./sleepAction";
 import MoveAction from "./moveAction";
 import {defaultState} from "../game";
 import GameState, {HOUR_LENGTH} from "../gameState";
@@ -91,6 +92,18 @@ describe("Action", () => {
         });
 
     });
+
+    describe("SleepAction", () => {
+        let action = new SleepAction();
+
+        it("waits for a full 8 hours", () => {
+            let state = new GameState(Immutable.Map({}));
+            let result = action.execute(state, state.player);
+            expect(result.time).to.equal(state.time + 8 * HOUR_LENGTH);
+        });
+
+    });
+
 
     describe("MoveAction", () => {
         let newZone = new Zone({

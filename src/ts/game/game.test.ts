@@ -9,6 +9,7 @@ import EmptyAction from "./action/emptyAction";
 import AttackAction from "./action/attackAction";
 import DevourAction from "./action/devourAction";
 import MoveAction from "./action/moveAction";
+import RestAction from "./action/restAction";
 import {riceBag} from "./enemies";
 import {strawPile} from "./zone/startingArea";
 
@@ -43,6 +44,13 @@ describe("game", () => {
             Game.turn(state, testAction);
             enemyStub.restore();
             expect(actionStub.calledOnce).to.be.true;
+        });
+
+        it("handles overfull", () => {
+            let state = new GameState(Immutable.Map({}));
+            state = state.setPlayer(state.player.setStomachFullness(1000));
+            let result = Game.turn(state, testAction);
+            expect(result.log.get(0)).to.equal("You moan and are unable to move much due to your dragging stomach.");
         });
 
         it("handles death", () => {
@@ -144,6 +152,24 @@ describe("game", () => {
             let result = Game.spawnMonster(state, zone);
             expect(result.canSpawn).to.be.false;
             expect(result.enemy).to.equal(monster);
+        });
+    });
+
+
+    describe("getAuxiliaryActions", () => {
+        it("returns nothing when monster is present", () => {
+            let state = new GameState(Immutable.Map({
+                enemy: riceBag
+            }));
+            let actions = Game.getAuxiliaryActions(state);
+            expect(actions.length).to.be.empty;
+        });
+
+        it("returns rest when no monster is present", () => {
+            let state = new GameState(Immutable.Map({}));
+            let actions = Game.getAuxiliaryActions(state);
+            expect(actions.length).to.equal(1);
+            expect(actions[0]).to.be.an.instanceof(RestAction);
         });
     });
 });

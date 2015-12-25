@@ -4,6 +4,7 @@ import ActionMap, {IActionMap} from "./action/actionMap";
 import Action from "./action/action";
 import AttackAction from "./action/attackAction";
 import DevourAction from "./action/devourAction";
+import RestAction from "./action/restAction";
 import * as Helpers from "./gameHelpers";
 import Zone from "./zone/zone";
 import ZoneMap from "./zone/zoneMap";
@@ -21,11 +22,18 @@ export function turn(state: GameState, playerAction: Action): GameState {
 
     if (result.player.IsAlive) {
         result = playerAction.execute(result, result.player);
+
+        if (result.player.IsOverfull) {
+            result = Helpers.appendLog(result, "You moan and are unable to move much due to your dragging stomach.");
+        }
+
         let zone = ZoneMap[result.zone];
         result = spawnMonster(result, zone);
+
         if (result.enemy) {
             result = enemyTurn(result);
         }
+
     }
 
     if (result.player.IsAlive === false) {
@@ -56,11 +64,19 @@ export function getAvailableActions(state: GameState): ActionMap {
             availableActions.c = new AttackAction();
         } else if (state.enemy) { // dead monster
             availableActions.c = new DevourAction();
-        } else { // no monster
+        } else if (!state.player.IsOverfull) { // no monster
             availableActions = ZoneMap[state.zone].getActionMap();
         }
     }
     return ActionMap.from(availableActions);
+}
+
+export function getAuxiliaryActions(state: GameState): Action[] {
+    let availableActions: Action[] = [];
+    if (state.player.IsAlive && !state.enemy) {
+        availableActions.push(new RestAction());
+    }
+    return availableActions;
 }
 
 export function spawnMonster(state: GameState, zone: Zone): GameState {

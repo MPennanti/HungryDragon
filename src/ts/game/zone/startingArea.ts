@@ -4,11 +4,11 @@ import { riceBag, rat, largeRat, hugeRat } from "../enemies";
 export const strawPile = registerZone({
     id: "strawPile",
     name: "Pile of Straw",
-    description: "A safe place to rest",
+    description: "A safe place to sleep.",
     monsters: [],
     monsterChance: 0,
     nearbyZones: {
-        c: "rest",
+        c: "sleep",
         e: "riceDen",
         s: "dingyStorage"
     }

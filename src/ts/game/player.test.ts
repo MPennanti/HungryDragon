@@ -22,7 +22,7 @@ describe("player", () => {
         });
 
         it("detects being overfull", () => {
-            let result = player.setStomachFullness(10);
+            let result = player.setStomachFullness(16);
             result = result.setStomach(5);
             expect(result.IsOverfull).to.be.true;
         });
