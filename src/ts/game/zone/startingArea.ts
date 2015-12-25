@@ -1,7 +1,7 @@
-import { registerZone } from "./zoneMap";
+import Zone from "./zone";
 import { riceBag, rat, largeRat, hugeRat } from "../enemies";
 
-export const strawPile = registerZone({
+export const strawPile = new Zone({
     id: "strawPile",
     name: "Pile of Straw",
     description: "A safe place to sleep.",
@@ -14,7 +14,7 @@ export const strawPile = registerZone({
     }
 });
 
-export const riceDen = registerZone({
+export const riceDen = new Zone({
     id: "riceDen",
     name: "Den of Rice",
     description: "Rice bags lurk here, smug grains that they are.",
@@ -25,7 +25,7 @@ export const riceDen = registerZone({
     }
 });
 
-export const dingyStorage = registerZone({
+export const dingyStorage = new Zone({
     id: "dingyStorage",
     name: "Dingy Storage Room",
     description: "A grimy place, infested with rats",
@@ -40,7 +40,7 @@ export const dingyStorage = registerZone({
     }
 });
 
-export const darkCorner = registerZone({
+export const darkCorner = new Zone({
     id: "darkCorner",
     name: "Dark Corner",
     description: "Heavily shadowed corner of the storageroom.",

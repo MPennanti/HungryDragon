@@ -1,9 +1,9 @@
 import { IActionMap } from "../action/actionMap";
 import MoveAction from "../action/moveAction";
 import SleepAction from "../action/sleepAction";
-import ZoneMap from "./zoneMap";
 import Enemy from "../enemy";
 import * as Random from "../../util/random";
+import GameState from "../gameState";
 
 export interface INearbyZones {
     nw?: string;
@@ -24,6 +24,10 @@ export interface IZoneConfig {
     monsters: Enemy[];
     monsterChance: number;
     nearbyZones: INearbyZones;
+}
+
+export interface IZoneMap {
+    [key: string]: Zone;
 }
 
 export default class Zone {
@@ -47,7 +51,7 @@ export default class Zone {
         return Random.pick(this.monsters);
     }
 
-    public getActionMap(): IActionMap {
+    public getActionMap(state: GameState): IActionMap {
         let actionConfig: IActionMap = {};
         Object.keys(this.nearbyZones).forEach((direction: string) => {
             let targetZone: string = this.nearbyZones[direction];
@@ -55,7 +59,7 @@ export default class Zone {
                 if (targetZone === "sleep") {
                     actionConfig[direction] = new SleepAction();
                 } else {
-                    actionConfig[direction] = new MoveAction(ZoneMap[targetZone]);
+                    actionConfig[direction] = new MoveAction(state.getZone(targetZone));
                 }
             }
         });

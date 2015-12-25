@@ -2,6 +2,7 @@ import * as Immutable from "immutable";
 import Model from "./model";
 import Player, { newPlayer } from "./player";
 import Enemy from "./enemy";
+import Zone, { IZoneMap } from "./zone/zone";
 
 export const MINUTE_LENGTH = 60;
 export const HOUR_LENGTH = MINUTE_LENGTH * 60;
@@ -99,6 +100,27 @@ export default class GameState extends Model {
 
     public setZone(zone: string): this {
         return this.set("zone", zone);
+    }
+
+    /**
+     * The map of all available zones
+     */
+    private get zoneMap(): IZoneMap {
+        return this._data.get("zoneMap", {});
+    }
+
+    /**
+     * The actual zone instance.
+     */
+    public getCurrentZone(): Zone {
+        return this.getZone(this.zone);
+    }
+
+    /**
+     * Get details of a specific zone.
+     */
+    public getZone(zoneId: string): Zone {
+        return this.zoneMap[zoneId];
     }
 
     /**

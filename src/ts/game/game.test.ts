@@ -12,6 +12,7 @@ import MoveAction from "./action/moveAction";
 import RestAction from "./action/restAction";
 import {riceBag} from "./enemies";
 import {strawPile} from "./zone/startingArea";
+import AllZones from "./zone/allZones";
 
 const expect = chai.expect;
 
@@ -104,8 +105,10 @@ describe("game", () => {
         });
 
         it("returns move when there is no monster", () => {
-            let state = new GameState(Immutable.Map({}));
-            state = state.setZone(strawPile);
+            let state = new GameState(Immutable.Map({
+                zoneMap: AllZones
+            }));
+            state = state.setZone(strawPile.id);
             let actions = Game.getAvailableActions(state);
             expect(actions.e).to.be.an.instanceOf(MoveAction);
         });

@@ -8,7 +8,7 @@ import RestAction from "./action/restAction";
 import SpareMonsterAction from "./action/spareMonsterAction";
 import * as Helpers from "./gameHelpers";
 import Zone from "./zone/zone";
-import ZoneMap from "./zone/zoneMap";
+import AllZones from "./zone/allZones";
 import {strawPile} from "./zone/startingArea";
 import * as Random from "../util/random";
 
@@ -28,8 +28,7 @@ export function turn(state: GameState, playerAction: Action): GameState {
             result = Helpers.appendLog(result, "You moan and are unable to move much due to your dragging stomach.");
         }
 
-        let zone = ZoneMap[result.zone];
-        result = spawnMonster(result, zone);
+        result = spawnMonster(result, result.getCurrentZone());
 
         if (result.enemy) {
             result = enemyTurn(result);
@@ -69,7 +68,7 @@ export function getAvailableActions(state: GameState): ActionMap {
             }
             availableActions.s = new SpareMonsterAction();
         } else if (!state.player.IsOverfull) { // no monster
-            availableActions = ZoneMap[state.zone].getActionMap();
+            availableActions = state.getCurrentZone().getActionMap(state);
         }
     }
     return ActionMap.from(availableActions);
@@ -100,5 +99,6 @@ export function spawnMonster(state: GameState, zone: Zone): GameState {
 const defaultLog = Immutable.List<string>(["You wake up on a pile of straw."]);
 export const defaultState = new GameState(Immutable.Map({
     log: defaultLog,
-    zone: strawPile
+    zone: strawPile.id,
+    zoneMap: AllZones
 }));
