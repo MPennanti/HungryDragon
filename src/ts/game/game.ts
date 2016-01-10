@@ -88,7 +88,7 @@ export function spawnMonster(state: GameState, zone: Zone): GameState {
         result = result.setCanSpawn(false);
         if (Random.bool(zone.monsterChance)) {
             result = result.setEnemy(zone.getMonster());
-            result = Helpers.appendLog(result, `You encounter a ${result.enemy.name}!`);
+            result = Helpers.appendLog(result, result.enemy.foundText);
         }
     }
 

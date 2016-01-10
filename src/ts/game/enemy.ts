@@ -4,6 +4,7 @@ import Model from "./model";
 export interface IEnemy extends IEntity {
     damageTakenText: string;
     damageDealtText: string;
+    foundText: string;
 }
 
 export default class Enemy extends Entity implements IEnemy {
@@ -24,6 +25,13 @@ export default class Enemy extends Entity implements IEnemy {
      */
     public get damageDealtText(): string {
         return this._data.get("damageDealtText");
+    }
+
+    /**
+     * A string used when the player encounters this enemy
+     */
+    public get foundText(): string {
+        return this._data.get("foundText");
     }
 
 }
