@@ -29,12 +29,14 @@ export default class Shell extends React.Component<{}, UIState> {
 
     public render(): React.ReactElement<any> {
         let state = this.state.gameState;
+        let currentZone = state.getCurrentZone();
         return <div className="hd-Shell">
             <div className="hd-PlayerPane">
                 <div>{state.prettyTime}</div>
                 <PlayerInfo player={state.player} />
             </div>
             <div className="hd-MainPane">
+                <div className="hd-ZoneName">{currentZone.name}</div>
                 <LogViewer log={state.log} />
                 <div className="hd-ActionArea">
                     <ActionGrid

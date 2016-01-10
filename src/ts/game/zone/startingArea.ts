@@ -4,7 +4,7 @@ import { riceBag, rat, largeRat, hugeRat } from "../enemies";
 export const strawPile = new Zone({
     id: "strawPile",
     name: "Pile of Straw",
-    description: "A safe place to sleep.",
+    description: "This seems like a safe place to sleep.",
     monsters: [],
     monsterChance: 0,
     nearbyZones: {
@@ -28,7 +28,7 @@ export const riceDen = new Zone({
 export const dingyStorage = new Zone({
     id: "dingyStorage",
     name: "Dingy Storage Room",
-    description: "A grimy place, infested with rats",
+    description: "This is a grimy place, quite infested with rats.",
     monsters: [[2, rat], largeRat],
     monsterChance: 0.8,
     nearbyZones: {
@@ -43,7 +43,7 @@ export const dingyStorage = new Zone({
 export const darkCorner = new Zone({
     id: "darkCorner",
     name: "Dark Corner",
-    description: "Heavily shadowed corner of the storageroom.",
+    description: "This is a heavily shadowed corner of the storageroom. You can sense something malicious lurking nearby.",
     monsters: [[3, largeRat], hugeRat],
     monsterChance: 0.9,
     nearbyZones: {
