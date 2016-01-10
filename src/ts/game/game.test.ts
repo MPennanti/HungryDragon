@@ -100,8 +100,18 @@ describe("game", () => {
             let state = new GameState(Immutable.Map({
                 enemy: riceBag.setHealth(0)
             }));
+            state = state.setPlayer(state.player.setStomach(riceBag.mass));
             let actions = Game.getAvailableActions(state);
             expect(actions.c).to.be.an.instanceOf(DevourAction);
+        });
+
+        it("does not devour when there is a dead monster bigger than stomach", () => {
+            let state = new GameState(Immutable.Map({
+                enemy: riceBag.setHealth(0)
+            }));
+            state = state.setPlayer(state.player.setStomach(riceBag.mass - 1));
+            let actions = Game.getAvailableActions(state);
+            expect(actions.c).to.be.an.instanceOf(EmptyAction);
         });
 
         it("returns move when there is no monster", () => {

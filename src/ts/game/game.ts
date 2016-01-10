@@ -63,7 +63,7 @@ export function getAvailableActions(state: GameState): ActionMap {
         if (state.enemy && state.enemy.IsAlive) {
             availableActions.c = new AttackAction();
         } else if (state.enemy) { // dead monster
-            if (!state.player.IsOverfull) {
+            if (!state.player.IsOverfull && state.enemy.mass <= state.player.stomach) {
                 availableActions.c = new DevourAction();
             }
             availableActions.s = new SpareMonsterAction();
