@@ -29,7 +29,7 @@ export const dingyStorage = new Zone({
     id: "dingyStorage",
     name: "Dingy Storage Room",
     description: "A grimy place, infested with rats",
-    monsters: [rat, largeRat],
+    monsters: [[2, rat], largeRat],
     monsterChance: 0.8,
     nearbyZones: {
         n: "strawPile",
@@ -44,7 +44,7 @@ export const darkCorner = new Zone({
     id: "darkCorner",
     name: "Dark Corner",
     description: "Heavily shadowed corner of the storageroom.",
-    monsters: [largeRat, hugeRat],
+    monsters: [[3, largeRat], hugeRat],
     monsterChance: 0.9,
     nearbyZones: {
         n: "dingyStorage",

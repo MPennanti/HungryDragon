@@ -17,17 +17,34 @@ export interface INearbyZones {
     se?: string;
 }
 
+type EnemyOrEnemyWeight = Enemy | [number, Enemy];
+
 export interface IZoneConfig {
     id: string;
     name: string;
     description: string;
-    monsters: Enemy[];
+    monsters: EnemyOrEnemyWeight[];
     monsterChance: number;
     nearbyZones: INearbyZones;
 }
 
 export interface IZoneMap {
     [key: string]: Zone;
+}
+
+function expandMonsters(monsterConfig: EnemyOrEnemyWeight[]): Enemy[] {
+    let result: Enemy[] = [];
+    monsterConfig.forEach((value) => {
+        if (Array.isArray(value)) {
+            let [weight, enemy] = value;
+            while (weight-- > 0) {
+                result.push(enemy);
+            }
+        } else {
+            result.push(value);
+        }
+    });
+    return result;
 }
 
 export default class Zone {
@@ -42,7 +59,7 @@ export default class Zone {
         this.id = zone.id;
         this.name = zone.name;
         this.description = zone.description;
-        this.monsters = zone.monsters;
+        this.monsters = expandMonsters(zone.monsters);
         this.monsterChance = zone.monsterChance;
         this.nearbyZones = zone.nearbyZones;
     }
@@ -65,4 +82,5 @@ export default class Zone {
         });
         return actionConfig;
     }
+
 }
