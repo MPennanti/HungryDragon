@@ -10,7 +10,7 @@ export default class DevourAction extends Action {
         let enemy = state.enemy;
 
         if (enemy) {
-            result = Helpers.appendLog(result, `You consume the ${enemy.name}!`);
+            result = Helpers.appendLog(result, enemy.devourText);
             let player = result.player;
             result = result.setPlayer(player.setStomachFullness(player.stomachFullness + enemy.mass));
             result = result.setEnemy(null);

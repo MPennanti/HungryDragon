@@ -5,6 +5,7 @@ export interface IEnemy extends IEntity {
     damageTakenText: string;
     damageDealtText: string;
     foundText: string;
+    devourText: string;
 }
 
 export default class Enemy extends Entity implements IEnemy {
@@ -32,6 +33,13 @@ export default class Enemy extends Entity implements IEnemy {
      */
     public get foundText(): string {
         return this._data.get("foundText");
+    }
+
+    /**
+     * A string used when the player devours this enemy
+     */
+    public get devourText(): string {
+        return this._data.get("devourText");
     }
 
 }

@@ -145,14 +145,13 @@ describe("game", () => {
             let state = new GameState(Immutable.Map({
                 canSpawn: true
             }));
-            let monster: any = {};
             let zone: any = {
                 monsterChance: 1,
-                getMonster: (): any => { return monster; }
+                getMonster: (): any => { return riceBag; }
             };
             let result = Game.spawnMonster(state, zone);
             expect(result.canSpawn).to.be.false;
-            expect(result.enemy).to.equal(monster);
+            expect(result.enemy).to.equal(riceBag);
         });
     });
 
