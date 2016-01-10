@@ -51,6 +51,5 @@ export const newPlayer = Player.construct({
     maxHealth: 10,
     mass: 10,
     stomach: 5,
-    hitChance: 1,
-    damageText: "You hit the {1} (-{0} hp)"
+    hitChance: 1
 });

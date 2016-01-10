@@ -6,7 +6,8 @@ export const riceBag = Enemy.construct({
     maxHealth: 5,
     mass: 5,
     hitChance: .5,
-    damageText: "The rice bag falls on you (-{0} hp)"
+    damageTakenText: "You hit the rice bag.",
+    damageDealtText: "The rice bag falls on you."
 });
 
 export const rat = Enemy.construct({
@@ -16,7 +17,8 @@ export const rat = Enemy.construct({
     mass: 3,
     hitChance: .8,
     hitDamage: 2,
-    damageText: "The rat nips you (-{0} hp)"
+    damageTakenText: "You hit the rat.",
+    damageDealtText: "The rat nips you."
 });
 
 export const largeRat = Enemy.construct({
@@ -26,7 +28,8 @@ export const largeRat = Enemy.construct({
     mass: 6,
     hitChance: .9,
     hitDamage: 4,
-    damageText: "The large rat bites you (-{0} hp)"
+    damageTakenText: "You hit the large rat.",
+    damageDealtText: "The large rat bites you."
 });
 
 export const hugeRat = Enemy.construct({
@@ -36,5 +39,6 @@ export const hugeRat = Enemy.construct({
     mass: 12,
     hitChance: .95,
     hitDamage: 8,
-    damageText: "The huge rat chomps you (-{0} hp)"
+    damageTakenText: "You hit the huge rat.",
+    damageDealtText: "The huge rat chomps you."
 });

@@ -6,7 +6,6 @@ export interface IEntity {
     maxHealth: number;
     hitChance: number;
     hitDamage?: number;
-    damageText: string;
     mass: number;
 }
 
@@ -72,13 +71,6 @@ export default class Entity extends Model implements IEntity {
     public setHitDamage(hitDamage: number): this {
         hitDamage = Math.max(hitDamage, 0);
         return this.set("hitDamage", hitDamage);
-    }
-
-    /**
-     * A string used when the current entity does damage
-     */
-    public get damageText(): string {
-        return this._data.get("damageText");
     }
 
     /**

@@ -2,7 +2,6 @@ import * as Immutable from "immutable";
 import GameState, {HOUR_LENGTH} from "./gameState";
 import Player from "./player";
 import * as Random from "../util/random";
-import {format} from "../util/string";
 import Entity from "./entity";
 import Enemy from "./enemy";
 
@@ -87,20 +86,23 @@ export function attack(state: GameState, isPlayer: boolean = true): GameState {
     let result = state;
     let target: Entity;
     let actor: Entity;
+    let damageText: string;
 
     if (isPlayer) {
         target = state.enemy;
         actor = state.player;
+        damageText = state.enemy.damageTakenText;
     } else {
         target = state.player;
         actor = state.enemy;
+        damageText = state.enemy.damageDealtText;
     }
 
     if (target && Random.bool(actor.hitChance)) {
         let max = actor.hitDamage;
         let min = Math.max(1, Math.floor(max * 0.7));
         let damage = Random.integer(min, max);
-        result = appendLog(state, format(actor.damageText, damage, target.name));
+        result = appendLog(state, `${damageText} (-${damage} hp)`);
         target = target.setHealth(target.health - damage);
 
         if (isPlayer) {
