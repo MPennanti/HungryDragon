@@ -22,7 +22,7 @@ export function turn(state: GameState, playerAction: Action): GameState {
     result = Helpers.clearLog(result);
 
     if (result.player.IsAlive) {
-        result = playerAction.execute(result, result.player);
+        result = playerAction.execute(result);
 
         if (result.player.IsOverfull) {
             result = Helpers.appendLog(result, "You moan and are unable to move much due to your dragging stomach.");
@@ -45,10 +45,9 @@ export function turn(state: GameState, playerAction: Action): GameState {
 
 export function enemyTurn(state: GameState): GameState {
     let result = state;
-    let enemy = state.enemy;
+    let enemy = result.enemy;
     if (enemy.IsAlive) {
-        let action = enemy.getAction();
-        result = action.execute(state, enemy);
+        result = Helpers.attack(result,  false);
     }
 
     if (result.enemy.IsAlive === false) {

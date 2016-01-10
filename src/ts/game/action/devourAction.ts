@@ -1,7 +1,6 @@
 import GameState from "../gameState";
 import * as Helpers from "../gameHelpers";
 import Action from "./action";
-import Player from "../player";
 
 export default class DevourAction extends Action {
     public name = "Devour";
@@ -12,10 +11,9 @@ export default class DevourAction extends Action {
 
         if (enemy) {
             result = Helpers.appendLog(result, `You consume the ${enemy.name}!`);
-            // todo: find a more clever way of doing this
-            let player = this._actor as Player;
-            this._actor = player.setStomachFullness(player.stomachFullness + enemy.mass);
-            this._target = null;
+            let player = result.player;
+            result = result.setPlayer(player.setStomachFullness(player.stomachFullness + enemy.mass));
+            result = result.setEnemy(null);
         }
         return result;
     }

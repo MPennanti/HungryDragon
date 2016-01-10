@@ -2,6 +2,9 @@ import * as Helpers from "./gameHelpers";
 import { HOUR_LENGTH } from "./gameState";
 import { defaultState } from "./game";
 import * as chai from "chai";
+import { riceBag } from "./enemies";
+
+const luckyEnemy = riceBag.setHitChance(1).setHitDamage(1);
 
 const expect = chai.expect;
 
@@ -85,6 +88,14 @@ describe("gameHelpers", () => {
             let result = defaultState.setPlayer(player);
             result = Helpers.digest(result, HOUR_LENGTH * 8);
             expect(result.player.health).to.equal(player.maxHealth);
+        });
+    });
+
+    describe("attack", () => {
+        it("handles player damage", () => {
+            let state = defaultState.setEnemy(luckyEnemy);
+            let result = Helpers.attack(state, false);
+            expect(result.player.health).to.equal(state.player.health - 1);
         });
     });
 });

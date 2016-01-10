@@ -35,18 +35,6 @@ describe("game", () => {
             expect(actionStub.calledOnce).to.be.true;
         });
 
-        it("lets the enemy take action", () => {
-            let state = new GameState(Immutable.Map({
-                enemy: riceBag
-            }));
-            let enemyAction = new Action();
-            let actionStub = sinon.stub(enemyAction, "doExecute").returnsArg(0);
-            let enemyStub = sinon.stub(riceBag, "getAction", (): Action => enemyAction);
-            Game.turn(state, testAction);
-            enemyStub.restore();
-            expect(actionStub.calledOnce).to.be.true;
-        });
-
         it("handles overfull", () => {
             let state = new GameState(Immutable.Map({}));
             state = state.setPlayer(state.player.setStomachFullness(1000));

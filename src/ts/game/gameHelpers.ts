@@ -1,6 +1,10 @@
 import * as Immutable from "immutable";
 import GameState, {HOUR_LENGTH} from "./gameState";
 import Player from "./player";
+import * as Random from "../util/random";
+import {format} from "../util/string";
+import Entity from "./entity";
+import Enemy from "./enemy";
 
 const GROWTH_RATE = .05;
 // when stomach is more than 100% full, the player grows
@@ -77,4 +81,33 @@ export function clearLog(state: GameState): GameState {
 
 export function appendLog(state: GameState, message: string): GameState {
     return state.setLog(state.log.push(message));
+}
+
+export function attack(state: GameState, isPlayer: boolean = true): GameState {
+    let result = state;
+    let target: Entity;
+    let actor: Entity;
+
+    if (isPlayer) {
+        target = state.enemy;
+        actor = state.player;
+    } else {
+        target = state.player;
+        actor = state.enemy;
+    }
+
+    if (target && Random.bool(actor.hitChance)) {
+        let max = actor.hitDamage;
+        let min = Math.max(1, Math.floor(max * 0.7));
+        let damage = Random.integer(min, max);
+        result = appendLog(state, format(actor.damageText, damage, target.name));
+        target = target.setHealth(target.health - damage);
+
+        if (isPlayer) {
+            result = result.setEnemy(target as Enemy);
+        } else {
+            result = result.setPlayer(target as Player);
+        }
+    }
+    return result;
 }

@@ -30,20 +30,12 @@ describe("Action", () => {
     describe("AttackAction", () => {
         let attackAction = new AttackAction();
 
-        it("handles player damage", () => {
-            let state = new GameState(Immutable.Map({
-                enemy: luckyEnemy
-            }));
-            let result = attackAction.execute(state, state.enemy);
-            expect(result.player.health).to.equal(state.player.health - 1);
-        });
-
         it("handles enemy damage", () => {
             let state = new GameState(Immutable.Map({
                 player: luckyPlayer,
                 enemy: luckyEnemy
             }));
-            let result = attackAction.execute(state, state.player);
+            let result = attackAction.execute(state);
             expect(result.enemy.health).to.equal(state.enemy.health - 1);
         });
     });
@@ -53,7 +45,7 @@ describe("Action", () => {
 
         it("does nothing", () => {
             let state = new GameState(Immutable.Map({}));
-            let result = emptyAction.execute(state, state.player);
+            let result = emptyAction.execute(state);
             expect(result).to.equal(state);
         });
 
@@ -66,7 +58,7 @@ describe("Action", () => {
             let state = new GameState(Immutable.Map({
                 enemy: riceBag
             }));
-            let result = devourAction.execute(state, state.player);
+            let result = devourAction.execute(state);
             expect(result.enemy).to.be.null;
         });
 
@@ -77,7 +69,7 @@ describe("Action", () => {
 
         it("creates a rice bag", () => {
             let state = new GameState(Immutable.Map({}));
-            let result = spawnMonsterAction.execute(state, state.player);
+            let result = spawnMonsterAction.execute(state);
             expect(result.enemy).to.equal(riceBag);
         });
 
@@ -90,7 +82,7 @@ describe("Action", () => {
             let state = new GameState(Immutable.Map({
                 enemy: riceBag
             }));
-            let result = spareMonsterAction.execute(state, state.player);
+            let result = spareMonsterAction.execute(state);
             expect(result.enemy).to.be.null;
         });
 
@@ -101,7 +93,7 @@ describe("Action", () => {
 
         it("waits for an hour", () => {
             let state = new GameState(Immutable.Map({}));
-            let result = action.execute(state, state.player);
+            let result = action.execute(state);
             expect(result.time).to.equal(state.time + HOUR_LENGTH);
         });
 
@@ -112,7 +104,7 @@ describe("Action", () => {
 
         it("waits for a full 8 hours", () => {
             let state = new GameState(Immutable.Map({}));
-            let result = action.execute(state, state.player);
+            let result = action.execute(state);
             expect(result.time).to.equal(state.time + 8 * HOUR_LENGTH);
         });
 
@@ -136,7 +128,7 @@ describe("Action", () => {
 
         it("changes the zone", () => {
             let state = new GameState(Immutable.Map({}));
-            let result = action.execute(state, state.player);
+            let result = action.execute(state);
             expect(result.zone).to.equal(newZone.id);
         });
 
@@ -151,7 +143,7 @@ describe("Action", () => {
             });
             let action = new MoveAction(scaryZone);
             let state = new GameState(Immutable.Map({}));
-            let result = action.execute(state, state.player);
+            let result = action.execute(state);
             expect(result.zone).to.equal(scaryZone.id);
             expect(result.canSpawn).to.be.true;
         });
