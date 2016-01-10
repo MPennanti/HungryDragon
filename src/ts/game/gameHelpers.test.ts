@@ -5,6 +5,8 @@ import * as chai from "chai";
 import { riceBag } from "./enemies";
 
 const luckyEnemy = riceBag.setHitChance(1).setHitDamage(1);
+const unluckyEnemy = riceBag.setHitChance(0).setHitDamage(1);
+let unluckyPlayer = defaultState.player.setHitChance(0).setHitDamage(1);
 
 const expect = chai.expect;
 
@@ -96,6 +98,18 @@ describe("gameHelpers", () => {
             let state = defaultState.setEnemy(luckyEnemy);
             let result = Helpers.attack(state, false);
             expect(result.player.health).to.equal(state.player.health - 1);
+        });
+
+        it("handles missing the player", () => {
+            let state = defaultState.setEnemy(unluckyEnemy);
+            let result = Helpers.attack(state, false);
+            expect(result.player.health).to.equal(state.player.health);
+        });
+
+        it("handles the player missing", () => {
+            let state = defaultState.setEnemy(unluckyEnemy).setPlayer(unluckyPlayer);
+            let result = Helpers.attack(state, true);
+            expect(result.enemy.health).to.equal(state.enemy.health);
         });
     });
 });

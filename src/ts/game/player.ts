@@ -51,6 +51,6 @@ export const newPlayer = Player.construct({
     maxHealth: 10,
     mass: 10,
     stomach: 5,
-    hitChance: 1,
+    hitChance: .90,
     hitDamage: 1
 });

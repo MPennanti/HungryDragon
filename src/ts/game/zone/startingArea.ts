@@ -44,7 +44,7 @@ export const darkCorner = new Zone({
     id: "darkCorner",
     name: "Dark Corner",
     description: "This is a heavily shadowed corner of the storageroom. You can sense something malicious lurking nearby.",
-    monsters: [[3, largeRat], hugeRat],
+    monsters: [[2, largeRat], hugeRat],
     monsterChance: 0.9,
     nearbyZones: {
         n: "dingyStorage",

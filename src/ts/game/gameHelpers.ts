@@ -102,13 +102,19 @@ export function attack(state: GameState, isPlayer: boolean = true): GameState {
         let max = actor.hitDamage;
         let min = Math.max(1, Math.floor(max * 0.7));
         let damage = Random.integer(min, max);
-        result = appendLog(state, `${damageText} (-${damage} hp)`);
+        result = appendLog(result, `${damageText} (-${damage} hp)`);
         target = target.setHealth(target.health - damage);
 
         if (isPlayer) {
             result = result.setEnemy(target as Enemy);
         } else {
             result = result.setPlayer(target as Player);
+        }
+    } else if (target) { // missed
+        if (isPlayer) {
+            result = appendLog(result, "Your attack misses your opponent!");
+        } else {
+            result = appendLog(result, "Your opponent tries to attack you, but misses!");
         }
     }
     return result;
