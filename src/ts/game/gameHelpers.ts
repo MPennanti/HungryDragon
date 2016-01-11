@@ -47,17 +47,45 @@ export function digest(state: GameState, seconds: number): GameState {
     return result;
 }
 
-// TODO: more random digest flavor text
 export function getStomachText(fullness: number, isOverfull: boolean): string {
-    let message = "Your stomach gurgles happily.";
+    let message = Random.pick([
+        "Your stomach gurgles happily.",
+        "Your gut grinds your meal down.",
+        "Your belly churns contentedly.",
+        "Your middle burbles noisily as it empties."
+    ]);
     if (isOverfull) {
-        message = "Your stomach groans and tries to digest its massive meal.";
+        message = "Your stomach groans and desperately tries to digest its massive meal. You cannot eat a single bite more.";
     } else if (fullness === 0) {
-        message = "Your stomach growls, ravenous.";
+        message = Random.pick([
+            "Your stomach growls, ravenous.",
+            "Your stomach roars in hunger.",
+            "Your belly burns with excess acid.",
+            "Your gut groans hollowly."
+        ]);
+    }  else if (fullness >= 2) {
+        message = Random.pick([
+            "Your stomach grinds its food, stretching heavily.",
+            "Your belly struggles to digest so much food.",
+            "Your gut churns hard to digest your extremely filling meal.",
+            "Your middle gurgles, working overtime to keep up with your gluttony.",
+            "Your belly bulges obscenely as your prey shifts inside you."
+        ]);
     } else if (fullness >= 1) {
-        message = "Your stomach revels in fullness.";
-    } else if (fullness < .15) {
-        message = "Your stomach rumbles hungrily.";
+        message = Random.pick([
+            "Your stomach revels in fullness.",
+            "Your stomach glorps loudly as it digests.",
+            "Your belly bulges with the struggles of your prey.",
+            "Your belly squeezes its prey possessively.",
+            "Your middle tightens, crushing your squirming prey."
+        ]);
+    } else if (fullness <= .25) {
+        message = Random.pick([
+            "Your stomach rumbles hungrily.",
+            "Your belly grumbles, unsatisfied.",
+            "Your gut grinds down the last of your meal.",
+            "Your middle noisily protests its lack of food."
+        ]);
     }
     return message;
 }

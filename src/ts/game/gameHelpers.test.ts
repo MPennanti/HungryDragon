@@ -53,25 +53,25 @@ describe("gameHelpers", () => {
     });
 
     describe("getStomachText", () => {
-        it("handles overfull", () => {
-            let result = Helpers.getStomachText(2, true);
-            expect(result).to.contain("groans");
+        it("returns different strings for various levels", () => {
+            let results: string[] = [];
+            //overfull
+            results.push(Helpers.getStomachText(3, true));
+            // very full
+            results.push(Helpers.getStomachText(2, false));
+            // full
+            results.push(Helpers.getStomachText(1, false));
+            // empty
+            results.push(Helpers.getStomachText(0, false));
+            // hungry
+            results.push(Helpers.getStomachText(.1, false));
+            // for each bucket we get a random flavor text, but no buckets should repeat
+            let unique = results.filter((value, index, self) => {
+                return self.indexOf(value) === index;
+            });
+            expect(unique).to.deep.equal(results);
         });
 
-        it("handles full", () => {
-            let result = Helpers.getStomachText(1, false);
-            expect(result).to.contain("fullness");
-        });
-
-        it("handles empty", () => {
-            let result = Helpers.getStomachText(0, false);
-            expect(result).to.contain("ravenous");
-        });
-
-        it("handles hungry", () => {
-            let result = Helpers.getStomachText(.1, false);
-            expect(result).to.contain("hungrily");
-        });
     });
 
     describe("updatePlayerMass", () => {
