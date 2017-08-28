@@ -1,6 +1,7 @@
-import Player, { newPlayer } from "./player";
-import * as Immutable from "immutable";
+// tslint:disable:no-unused-expression
 import * as chai from "chai";
+import * as Immutable from "immutable";
+import Player, { newPlayer } from "./player";
 
 const expect = chai.expect;
 
@@ -12,12 +13,12 @@ describe("player", () => {
         });
 
         it("sets stomachsize", () => {
-            let result = player.setStomach(10);
+            const result = player.setStomach(10);
             expect(result.stomach).to.equal(10);
         });
 
         it("sets fullness", () => {
-            let result = player.setStomachFullness(10);
+            const result = player.setStomachFullness(10);
             expect(result.stomachFullness).to.equal(10);
         });
 

@@ -1,19 +1,19 @@
-import * as Helpers from "./gameHelpers";
-import { HOUR_LENGTH } from "./gameState";
-import { defaultState } from "./game";
 import * as chai from "chai";
 import { riceBag } from "./enemies";
+import { defaultState } from "./game";
+import * as Helpers from "./gameHelpers";
+import { HOUR_LENGTH } from "./gameState";
 
 const luckyEnemy = riceBag.setHitChance(1).setHitDamage(1);
 const unluckyEnemy = riceBag.setHitChance(0).setHitDamage(1);
-let unluckyPlayer = defaultState.player.setHitChance(0).setHitDamage(1);
+const unluckyPlayer = defaultState.player.setHitChance(0).setHitDamage(1);
 
 const expect = chai.expect;
 
 describe("gameHelpers", () => {
     describe("tick", () => {
         it("should advance the clock", () => {
-            let result = Helpers.tick(defaultState, 1);
+            const result = Helpers.tick(defaultState, 1);
             expect(result.time).to.equal(defaultState.time + 1);
         });
     });
@@ -21,8 +21,8 @@ describe("gameHelpers", () => {
     describe("prettyTime", () => {
         it("displays the correct time", () => {
             // day 7 hour 18 minute 8 second 15
-            let time = 670095;
-            let result = Helpers.tick(defaultState, time);
+            const time = 670095;
+            const result = Helpers.tick(defaultState, time);
             expect(result.time).to.equal(time);
             expect(result.day, "day").to.equal(7);
             expect(result.hour, "hour").to.equal(18);
@@ -54,8 +54,8 @@ describe("gameHelpers", () => {
 
     describe("getStomachText", () => {
         it("returns different strings for various levels", () => {
-            let results: string[] = [];
-            //overfull
+            const results: string[] = [];
+            // overfull
             results.push(Helpers.getStomachText(3, true));
             // very full
             results.push(Helpers.getStomachText(2, false));
@@ -66,7 +66,7 @@ describe("gameHelpers", () => {
             // hungry
             results.push(Helpers.getStomachText(.1, false));
             // for each bucket we get a random flavor text, but no buckets should repeat
-            let unique = results.filter((value, index, self) => {
+            const unique = results.filter((value, index, self) => {
                 return self.indexOf(value) === index;
             });
             expect(unique).to.deep.equal(results);
@@ -76,8 +76,8 @@ describe("gameHelpers", () => {
 
     describe("updatePlayerMass", () => {
         it("increases stats with mass", () => {
-            let player = defaultState.player;
-            let result = Helpers.updatePlayerMass(player, player.mass * 10);
+            const player = defaultState.player;
+            const result = Helpers.updatePlayerMass(player, player.mass * 10);
             expect(result.stomach).to.be.greaterThan(player.stomach);
             expect(result.maxHealth).to.be.greaterThan(player.maxHealth);
             expect(result.hitDamage).to.be.greaterThan(player.hitDamage);
@@ -95,21 +95,24 @@ describe("gameHelpers", () => {
 
     describe("attack", () => {
         it("handles player damage", () => {
-            let state = defaultState.setEnemy(luckyEnemy);
-            let result = Helpers.attack(state, false);
+            const state = defaultState.setEnemy(luckyEnemy);
+            const result = Helpers.attack(state, false);
             expect(result.player.health).to.equal(state.player.health - 1);
         });
 
         it("handles missing the player", () => {
-            let state = defaultState.setEnemy(unluckyEnemy);
-            let result = Helpers.attack(state, false);
+            const state = defaultState.setEnemy(unluckyEnemy);
+            const result = Helpers.attack(state, false);
             expect(result.player.health).to.equal(state.player.health);
         });
 
         it("handles the player missing", () => {
-            let state = defaultState.setEnemy(unluckyEnemy).setPlayer(unluckyPlayer);
-            let result = Helpers.attack(state, true);
-            expect(result.enemy.health).to.equal(state.enemy.health);
+            const state = defaultState.setEnemy(unluckyEnemy).setPlayer(unluckyPlayer);
+            const result = Helpers.attack(state, true);
+            expect(result.enemy).to.be.an("object");
+            if (result.enemy) {
+                expect(result.enemy.health).to.equal(unluckyEnemy.health);
+            }
         });
     });
 });

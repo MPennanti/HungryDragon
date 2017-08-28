@@ -1,5 +1,5 @@
-import GameState, {HOUR_LENGTH} from "../gameState";
 import * as Helpers from "../gameHelpers";
+import GameState, { HOUR_LENGTH } from "../gameState";
 import Action from "./action";
 
 export default class RestAction extends Action {

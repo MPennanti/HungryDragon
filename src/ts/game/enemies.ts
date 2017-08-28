@@ -9,7 +9,7 @@ export const riceBag = Enemy.construct({
     damageTakenText: "You hit the rice bag.",
     damageDealtText: "The rice bag falls on you.",
     foundText: "You notice a suspicious looking bag of rice.",
-    devourText: "You gulp down the bag of rice, hoping it doesn't expand too much in your stomach."
+    devourText: "You gulp down the bag of rice, hoping it doesn't expand too much in your stomach.",
 });
 
 export const rat = Enemy.construct({
@@ -24,7 +24,7 @@ export const rat = Enemy.construct({
     foundText: "A rat scurries out from behind a crate and hisses at you.",
     devourText: `The rat tries to scurry away from you, but you trap its tail with you paw.
     It squeaks in fear as you dangle it over your throat before dropping it in.
-    In one smooth gulp it vanishes into your body.`
+    In one smooth gulp it vanishes into your body.`,
 });
 
 export const largeRat = Enemy.construct({
@@ -39,7 +39,7 @@ export const largeRat = Enemy.construct({
     foundText: "A large rat charges out of the shadows.",
     devourText: `The rat hisses at you, but there is no heat to it.
     You pounce your defeated opponent, gulping hungrily.
-    The rat struggles weakly in your throat as it sinks into your waiting stomach.`
+    The rat struggles weakly in your throat as it sinks into your waiting stomach.`,
 });
 
 export const hugeRat = Enemy.construct({
@@ -55,5 +55,5 @@ export const hugeRat = Enemy.construct({
     devourText: `You walk over to your fallen enemy and the giant rat leaps at you in a final desperate attack.
     Anticipating this, you greet your prey with open jaws, its leap carrying it into your throat.
     The rat attempts to scurry back out of your maw, but your tongue wraps around it and drags it the rest of the way in.
-    With one massive swallow, you sentence the oversized rodent to the depths of your body.`
+    With one massive swallow, you sentence the oversized rodent to the depths of your body.`,
 });

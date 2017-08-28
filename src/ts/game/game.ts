@@ -1,16 +1,16 @@
 import * as Immutable from "immutable";
-import GameState from "./gameState";
-import ActionMap, {IActionMap} from "./action/actionMap";
+import * as Random from "../util/random";
 import Action from "./action/action";
+import ActionMap, { IActionMap } from "./action/actionMap";
 import AttackAction from "./action/attackAction";
 import DevourAction from "./action/devourAction";
 import RestAction from "./action/restAction";
 import SpareMonsterAction from "./action/spareMonsterAction";
 import * as Helpers from "./gameHelpers";
-import Zone from "./zone/zone";
+import GameState from "./gameState";
 import AllZones from "./zone/allZones";
-import {strawPile} from "./zone/startingArea";
-import * as Random from "../util/random";
+import { strawPile } from "./zone/startingArea";
+import Zone from "./zone/zone";
 
 export function turn(state: GameState, playerAction: Action): GameState {
     let result = state;
@@ -45,13 +45,13 @@ export function turn(state: GameState, playerAction: Action): GameState {
 
 export function enemyTurn(state: GameState): GameState {
     let result = state;
-    let enemy = result.enemy;
-    if (enemy.IsAlive) {
+    const enemy = result.enemy;
+    if (enemy && enemy.IsAlive) {
         result = Helpers.attack(result,  false);
     }
 
-    if (result.enemy.IsAlive === false) {
-        result = Helpers.appendLog(result, `You have defeated the ${enemy.name}!`);
+    if (result.enemy && result.enemy.IsAlive === false) {
+        result = Helpers.appendLog(result, `You have defeated the ${result.enemy.name}!`);
     }
     return result;
 }
@@ -74,7 +74,7 @@ export function getAvailableActions(state: GameState): ActionMap {
 }
 
 export function getAuxiliaryActions(state: GameState): Action[] {
-    let availableActions: Action[] = [];
+    const availableActions: Action[] = [];
     if (state.player.IsAlive && !state.enemy) {
         availableActions.push(new RestAction());
     }
@@ -88,7 +88,9 @@ export function spawnMonster(state: GameState, zone: Zone): GameState {
         result = result.setCanSpawn(false);
         if (Random.bool(zone.monsterChance)) {
             result = result.setEnemy(zone.getMonster());
-            result = Helpers.appendLog(result, result.enemy.foundText);
+            if (result.enemy) {
+                result = Helpers.appendLog(result, result.enemy.foundText);
+            }
         }
     }
 
@@ -99,5 +101,5 @@ const defaultLog = Immutable.List<string>(["You wake up on a pile of straw."]);
 export const defaultState = new GameState(Immutable.Map({
     log: defaultLog,
     zone: strawPile.id,
-    zoneMap: AllZones
+    zoneMap: AllZones,
 }));

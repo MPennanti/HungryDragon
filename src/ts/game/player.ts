@@ -1,4 +1,4 @@
-import Entity, {IEntity} from "./entity";
+import Entity, { IEntity } from "./entity";
 import Model from "./model";
 
 export interface IPlayer extends IEntity {
@@ -6,6 +6,10 @@ export interface IPlayer extends IEntity {
 }
 
 export default class Player extends Entity implements IPlayer {
+
+    public static construct(playerDescriptor: IPlayer): Player {
+        return Model._construct(Player, playerDescriptor);
+    }
 
     /**
      * The size of your stomach
@@ -40,9 +44,6 @@ export default class Player extends Entity implements IPlayer {
         return Math.round(4.02363 * Math.pow(this.mass, 0.872503));
     }
 
-    static construct(playerDescriptor: IPlayer): Player {
-        return Model._construct(Player, playerDescriptor);
-    }
 }
 
 export const newPlayer = Player.construct({
@@ -52,5 +53,5 @@ export const newPlayer = Player.construct({
     mass: 10,
     stomach: 5,
     hitChance: .90,
-    hitDamage: 1
+    hitDamage: 1,
 });

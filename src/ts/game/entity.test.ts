@@ -1,6 +1,7 @@
-import Entity from "./entity";
-import * as Immutable from "immutable";
+// tslint:disable:no-unused-expression
 import * as chai from "chai";
+import * as Immutable from "immutable";
+import Entity from "./entity";
 
 const expect = chai.expect;
 
@@ -12,17 +13,17 @@ describe("entity", () => {
         });
 
         it("sets name", () => {
-            let result = entity.setName("Test Name");
+            const result = entity.setName("Test Name");
             expect(result.name).to.equal("Test Name");
         });
 
         it("sets health", () => {
-            let result = entity.setHealth(10);
+            const result = entity.setHealth(10);
             expect(result.health).to.equal(10);
         });
 
         it("sets maxHealth", () => {
-            let result = entity.setMaxHealth(20);
+            const result = entity.setMaxHealth(20);
             expect(result.maxHealth).to.equal(20);
         });
 
@@ -34,12 +35,12 @@ describe("entity", () => {
         });
 
         it("health cannot exceed maxHealth", () => {
-            let result = entity.setHealth(20);
+            const result = entity.setHealth(20);
             expect(result.health).to.equal(10);
         });
 
         it("health cannot be negative", () => {
-            let result = entity.setHealth(-5);
+            const result = entity.setHealth(-5);
             expect(result.health).to.equal(0);
         });
 
@@ -51,22 +52,22 @@ describe("entity", () => {
         });
 
         it("hitChance cannot be negative", () => {
-            let result = entity.setHitChance(-5);
+            const result = entity.setHitChance(-5);
             expect(result.hitChance).to.equal(0);
         });
 
         it("hitChance cannot be greater than 1", () => {
-            let result = entity.setHitChance(5);
+            const result = entity.setHitChance(5);
             expect(result.hitChance).to.equal(1);
         });
 
         it("damage cannot be negative", () => {
-            let result = entity.setHitDamage(-5);
+            const result = entity.setHitDamage(-5);
             expect(result.hitDamage).to.equal(0);
         });
 
         it("sets mass", () => {
-            let result = entity.setMass(10);
+            const result = entity.setMass(10);
             expect(result.mass).to.equal(10);
         });
     });

@@ -4,10 +4,10 @@
     module.exports = function (grunt) {
         return {
             options: {
-                configuration: grunt.file.readJSON("tslint.json"),
+                configuration: "tslint.json",
             },
             files: {
-                src: ["src/ts/**/*.ts"]
+                src: ["src/ts/**/*.ts", "src/ts/**/*.tsx"]
             }
         };
     };

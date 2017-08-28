@@ -1,6 +1,6 @@
-import GameState from "../gameState";
+import { riceBag } from "../enemies";
 import * as Helpers from "../gameHelpers";
-import {riceBag} from "../enemies";
+import GameState from "../gameState";
 import Action from "./action";
 
 export default class SpawnMonsterAction extends Action {
@@ -11,7 +11,9 @@ export default class SpawnMonsterAction extends Action {
 
         if (!result.enemy) {
             result = result.setEnemy(riceBag);
-            result = Helpers.appendLog(result, `You encounter a ${result.enemy.name}!`);
+            if (result.enemy) {
+                result = Helpers.appendLog(result, `You encounter a ${result.enemy.name}!`);
+            }
         }
         return result;
     }

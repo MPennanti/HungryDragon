@@ -2,9 +2,28 @@
     "compilerOptions": {
         "module": "commonjs",
         "noImplicitAny": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
         "target": "ES5",
+        "lib": [
+            "es2016",
+            "dom"
+        ],
         "suppressImplicitAnyIndexErrors": true,
         "jsx": "react",
-        "experimentalDecorators": true
-    }
+        "experimentalDecorators": true,
+        "moduleResolution": "node",
+        "strictNullChecks": true,
+        "alwaysStrict": true,
+        "forceConsistentCasingInFileNames": true,
+        "noImplicitThis": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "outDir": "dist/app",
+        "rootDir": "src/ts"
+    },
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
 }

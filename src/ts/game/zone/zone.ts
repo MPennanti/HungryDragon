@@ -1,8 +1,8 @@
+import * as Random from "../../util/random";
 import { IActionMap } from "../action/actionMap";
 import MoveAction from "../action/moveAction";
 import SleepAction from "../action/sleepAction";
 import Enemy from "../enemy";
-import * as Random from "../../util/random";
 import GameState from "../gameState";
 
 export interface INearbyZones {
@@ -33,7 +33,7 @@ export interface IZoneMap {
 }
 
 function expandMonsters(monsterConfig: EnemyOrEnemyWeight[]): Enemy[] {
-    let result: Enemy[] = [];
+    const result: Enemy[] = [];
     monsterConfig.forEach((value) => {
         if (Array.isArray(value)) {
             let [weight, enemy] = value;
@@ -69,9 +69,9 @@ export default class Zone {
     }
 
     public getActionMap(state: GameState): IActionMap {
-        let actionConfig: IActionMap = {};
+        const actionConfig: IActionMap = {};
         Object.keys(this.nearbyZones).forEach((direction: string) => {
-            let targetZone: string = this.nearbyZones[direction];
+            const targetZone: string = this.nearbyZones[direction];
             if (targetZone) {
                 if (targetZone === "sleep") {
                     actionConfig[direction] = new SleepAction();

@@ -1,7 +1,7 @@
-import {IZoneMap} from "./zone";
 import * as StartingArea from "./startingArea";
+import { IZoneMap } from "./zone";
 
-let allZones: IZoneMap = {};
+const allZones: IZoneMap = {};
 
 function addZones(area: IZoneMap): void {
     Object.keys(area).forEach((zoneId) => {

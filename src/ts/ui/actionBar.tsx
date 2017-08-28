@@ -1,34 +1,30 @@
 import * as React from "react";
 import Action from "../game/action/action";
+import ActionButton from "./actionButton";
 
-export interface ActionBarProps {
-    actions: Action[]
+export interface IActionBarProps {
+    actions: Action[];
     onActionExecute: (action: Action) => void;
 }
 
-export default class ActionBar extends React.Component<ActionBarProps, {}> {
+export default class ActionBar extends React.PureComponent<IActionBarProps> {
 
-    public render(): React.ReactElement<any> {
-        let actions = this.getActions(this.props.actions);
-        return <div className="hd-ActionBar">
-            {actions}
-        </div>;
+    public render() {
+        const actions = this.getActions(this.props.actions);
+        return (
+            <div className="hd-ActionBar">
+                {actions}
+            </div>
+        );
     }
 
-    public getActions(actions: Action[]): React.ReactElement<any>[] {
-        return actions.map((action: Action, index: number): React.ReactElement<any> => {
-            return this.getAction(action, index);
+    public getActions(actions: Action[]) {
+        return actions.map((action: Action): React.ReactElement<any> => {
+            return <ActionButton key={action.id} action={action} className={"hd-ActionBar-Action"} onActionExecute={this.handleAction} />;
         });
     }
 
-    public getAction(action: Action, key: number): React.ReactElement<any> {
-        return <div key={key} className="hd-ActionBar-Action">
-            <button onClick={(ev) => this.handleClick(action, ev) }>{action.name}</button>
-        </div>;
-    }
-
-    public handleClick(action: Action, ev: React.MouseEvent): void {
+    public handleAction = (action: Action): void => {
         this.props.onActionExecute(action);
-        ev.stopPropagation();
     }
 }

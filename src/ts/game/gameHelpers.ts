@@ -1,9 +1,9 @@
 import * as Immutable from "immutable";
-import GameState, {HOUR_LENGTH} from "./gameState";
-import Player from "./player";
 import * as Random from "../util/random";
-import Entity from "./entity";
 import Enemy from "./enemy";
+import Entity from "./entity";
+import GameState, { HOUR_LENGTH } from "./gameState";
+import Player from "./player";
 
 const GROWTH_RATE = .05;
 // when stomach is more than 100% full, the player grows
@@ -24,19 +24,19 @@ export function digest(state: GameState, seconds: number): GameState {
 
     if (player.stomachFullness > 0) {
         // 8 hours to empty, 12.5% per hour
-        let digestionAmount = seconds / HOUR_LENGTH * .125 * player.stomach;
-        let originalFullness = fullness;
+        const digestionAmount = seconds / HOUR_LENGTH * .125 * player.stomach;
+        const originalFullness = fullness;
         player = player.setStomachFullness(player.stomachFullness - digestionAmount);
         fullness = player.stomachFullness / player.stomach;
         // heal 100% for 100% stomach digestion
         if (player.health < player.maxHealth) {
-            let healAmount = (originalFullness - fullness) * player.maxHealth;
+            const healAmount = (originalFullness - fullness) * player.maxHealth;
             player = player.setHealth(player.health + healAmount);
         }
         // above stomach capacity, we're going to grow
         if (originalFullness > GROWTH_THRESHOLD) {
-            let growthFactor = (originalFullness - Math.max(fullness, GROWTH_THRESHOLD));
-            let newMass = player.mass + growthFactor * GROWTH_RATE * player.mass;
+            const growthFactor = (originalFullness - Math.max(fullness, GROWTH_THRESHOLD));
+            const newMass = player.mass + growthFactor * GROWTH_RATE * player.mass;
             player = updatePlayerMass(player, newMass);
         }
         result = result.setPlayer(player);
@@ -52,7 +52,7 @@ export function getStomachText(fullness: number, isOverfull: boolean): string {
         "Your stomach gurgles happily.",
         "Your gut grinds your meal down.",
         "Your belly churns contentedly.",
-        "Your middle burbles noisily as it empties."
+        "Your middle burbles noisily as it empties.",
     ]);
     if (isOverfull) {
         message = "Your stomach groans and desperately tries to digest its massive meal. You cannot eat a single bite more.";
@@ -61,7 +61,7 @@ export function getStomachText(fullness: number, isOverfull: boolean): string {
             "Your stomach growls, ravenous.",
             "Your stomach roars in hunger.",
             "Your belly burns with excess acid.",
-            "Your gut groans hollowly."
+            "Your gut groans hollowly.",
         ]);
     }  else if (fullness >= 2) {
         message = Random.pick([
@@ -69,7 +69,7 @@ export function getStomachText(fullness: number, isOverfull: boolean): string {
             "Your belly struggles to digest so much food.",
             "Your gut churns hard to digest your extremely filling meal.",
             "Your middle gurgles, working overtime to keep up with your gluttony.",
-            "Your belly bulges obscenely as your prey shifts inside you."
+            "Your belly bulges obscenely as your prey shifts inside you.",
         ]);
     } else if (fullness >= 1) {
         message = Random.pick([
@@ -77,14 +77,14 @@ export function getStomachText(fullness: number, isOverfull: boolean): string {
             "Your stomach glorps loudly as it digests.",
             "Your belly bulges with the struggles of your prey.",
             "Your belly squeezes its prey possessively.",
-            "Your middle tightens, crushing your squirming prey."
+            "Your middle tightens, crushing your squirming prey.",
         ]);
     } else if (fullness <= .25) {
         message = Random.pick([
             "Your stomach rumbles hungrily.",
             "Your belly grumbles, unsatisfied.",
             "Your gut grinds down the last of your meal.",
-            "Your middle noisily protests its lack of food."
+            "Your middle noisily protests its lack of food.",
         ]);
     }
     return message;
@@ -94,10 +94,10 @@ export function updatePlayerMass(player: Player, mass: number): Player {
     player = player.setMass(mass);
     player = player.setStomach(mass / 2);
     // health and damage scale linearly with size
-    let size = player.size;
-    let newMaxHealth = Math.round(size * 1.07407 - 22.2222);
+    const size = player.size;
+    const newMaxHealth = Math.round(size * 1.07407 - 22.2222);
     player = player.setMaxHealth(newMaxHealth);
-    let newDamage = Math.round(size * 0.36667 - 10);
+    const newDamage = Math.round(size * 0.36667 - 10);
     player = player.setHitDamage(newDamage);
     return player;
 }
@@ -111,6 +111,10 @@ export function appendLog(state: GameState, message: string): GameState {
 }
 
 export function attack(state: GameState, isPlayer: boolean = true): GameState {
+    if (!state.enemy) {
+        return state;
+    }
+
     let result = state;
     let target: Entity;
     let actor: Entity;
@@ -127,9 +131,9 @@ export function attack(state: GameState, isPlayer: boolean = true): GameState {
     }
 
     if (target && Random.bool(actor.hitChance)) {
-        let max = actor.hitDamage;
-        let min = Math.max(1, Math.floor(max * 0.7));
-        let damage = Random.integer(min, max);
+        const max = actor.hitDamage;
+        const min = Math.max(1, Math.floor(max * 0.7));
+        const damage = Random.integer(min, max);
         result = appendLog(result, `${damageText} (-${damage} hp)`);
         target = target.setHealth(target.health - damage);
 

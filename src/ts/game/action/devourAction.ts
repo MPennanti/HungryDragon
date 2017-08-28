@@ -1,5 +1,5 @@
-import GameState from "../gameState";
 import * as Helpers from "../gameHelpers";
+import GameState from "../gameState";
 import Action from "./action";
 
 export default class DevourAction extends Action {
@@ -7,13 +7,13 @@ export default class DevourAction extends Action {
 
     protected doExecute(state: GameState): GameState {
         let result = state;
-        let enemy = state.enemy;
+        const enemy = state.enemy;
 
         if (enemy) {
             result = Helpers.appendLog(result, enemy.devourText);
-            let player = result.player;
+            const player = result.player;
             result = result.setPlayer(player.setStomachFullness(player.stomachFullness + enemy.mass));
-            result = result.setEnemy(null);
+            result = result.setEnemy();
         }
         return result;
     }

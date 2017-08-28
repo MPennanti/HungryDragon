@@ -1,17 +1,19 @@
-import * as React from "react";
 import * as Immutable from "immutable";
+import * as React from "react";
 
-export interface LogViewerProps extends React.Props<LogViewer> {
+export interface ILogViewerProps {
     log: Immutable.List<string>;
 }
 
-export default class LogViewer extends React.Component<LogViewerProps, {}> {
+export default class LogViewer extends React.Component<ILogViewerProps> {
     public render(): React.ReactElement<any> {
-        let items = this.props.log.map((item: string, index: number) => {
+        const items = this.props.log.map((item: string, index: number) => {
             return <li key={index}>{item}</li>;
         });
-        return <div className="hd-LogArea">
-            <ul>{items}</ul>
-        </div>;
+        return (
+            <div className="hd-LogArea">
+                <ul>{items}</ul>
+            </div>
+        );
     }
 }

@@ -1,6 +1,6 @@
 import * as Random from "random-js";
 
-let engine = Random.engines.mt19937().autoSeed();
+const engine = Random.engines.mt19937().autoSeed();
 
 /**
  * Randomly generate an integer, within the inclusive bounds.
@@ -19,12 +19,14 @@ export function bool(): boolean;
  * Return a random boolean value with a percentage change of truth
  * @param percentage 0-1
  */
+// tslint:disable-next-line:unified-signatures
 export function bool(percentage: number): boolean;
 /**
  * Return a random value that is true numerator times out of denominator
  */
 export function bool(numerator?: number, denominator?: number): boolean {
-    return Random.bool(numerator, denominator)(engine);
+    // any below because of bad TS definitions in the @types package.
+    return Random.bool(numerator as any, denominator as any)(engine);
 }
 
 /**

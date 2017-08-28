@@ -1,7 +1,7 @@
-import GameState from "../gameState";
 import * as Helpers from "../gameHelpers";
-import Action from "./action";
+import GameState from "../gameState";
 import Zone from "../zone/zone";
+import Action from "./action";
 
 export default class MoveAction extends Action {
     public name = "Move";

@@ -1,7 +1,7 @@
 import * as Immutable from "immutable";
+import Enemy from "./enemy";
 import Model from "./model";
 import Player, { newPlayer } from "./player";
-import Enemy from "./enemy";
 import Zone, { IZoneMap } from "./zone/zone";
 
 export const MINUTE_LENGTH = 60;
@@ -83,11 +83,11 @@ export default class GameState extends Model {
     /**
      * The current active enemy (if one exists)
      */
-    public get enemy(): Enemy {
+    public get enemy(): Enemy | undefined {
         return this._data.get("enemy");
     }
 
-    public setEnemy(enemy: Enemy): this {
+    public setEnemy(enemy?: Enemy): this {
         return this.set("enemy", enemy);
     }
 
@@ -131,7 +131,7 @@ export default class GameState extends Model {
         return this._data.get("canSpawn", false);
     }
 
-    public setCanSpawn(canSpawn: boolean) : this {
+    public setCanSpawn(canSpawn: boolean): this {
         return this.set("canSpawn", canSpawn);
     }
 

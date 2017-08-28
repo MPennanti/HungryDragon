@@ -1,7 +1,7 @@
 import * as Immutable from "immutable";
 import Model from "../model";
-import EmptyAction from "./emptyAction";
 import Action from "./action";
+import EmptyAction from "./emptyAction";
 
 export interface IActionMap {
     nw?: Action;
@@ -57,7 +57,7 @@ export default class ActionMap extends Model implements IActionMap {
         return this._data.get("se", emptyAction);
     }
 
-    public static from(data?: IActionMap): ActionMap {
+    public static from(data: IActionMap): ActionMap {
         return new ActionMap(Immutable.Map<string, any>(data));
     }
 }

@@ -5,16 +5,16 @@ const expect = chai.expect;
 
 describe("Zone", () => {
     it("Returns a monster", () => {
-        let monster: any = {};
-        let zone = new Zone({
+        const monster: any = {};
+        const zone = new Zone({
             id: "zone",
             name: "Zone Name",
             description: "",
             monsters: [monster],
             monsterChance: 0,
-            nearbyZones: {}
+            nearbyZones: {},
         });
-        let chosenMonster = zone.getMonster();
+        const chosenMonster = zone.getMonster();
         expect(chosenMonster).to.equal(monster);
     });
 

@@ -1,5 +1,5 @@
+import { hugeRat, largeRat, rat, riceBag } from "../enemies";
 import Zone from "./zone";
-import { riceBag, rat, largeRat, hugeRat } from "../enemies";
 
 export const strawPile = new Zone({
     id: "strawPile",
@@ -10,8 +10,8 @@ export const strawPile = new Zone({
     nearbyZones: {
         c: "sleep",
         e: "riceDen",
-        s: "dingyStorage"
-    }
+        s: "dingyStorage",
+    },
 });
 
 export const riceDen = new Zone({
@@ -21,8 +21,8 @@ export const riceDen = new Zone({
     monsters: [riceBag],
     monsterChance: 0.75,
     nearbyZones: {
-        w: "strawPile"
-    }
+        w: "strawPile",
+    },
 });
 
 export const dingyStorage = new Zone({
@@ -36,8 +36,8 @@ export const dingyStorage = new Zone({
         w: "dingyStorage",
         c: "dingyStorage",
         e: "dingyStorage",
-        s: "darkCorner"
-    }
+        s: "darkCorner",
+    },
 });
 
 export const darkCorner = new Zone({
@@ -48,6 +48,6 @@ export const darkCorner = new Zone({
     monsterChance: 0.9,
     nearbyZones: {
         n: "dingyStorage",
-        c: "darkCorner"
-    }
+        c: "darkCorner",
+    },
 });
